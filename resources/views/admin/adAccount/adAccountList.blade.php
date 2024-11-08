@@ -27,14 +27,20 @@
 							 <div align="right">
 								<!-- <a href="{{route('ad-account-status-filter','Created')}}" class="btn btn-success">Created</a> -->
 
-								<a href="{{route('ad-account-status-filter','Reject')}}" class="btn btn-danger">Reject</a>
+								<a href="{{route('ad-account-status-filter','Reject')}}" class="btn btn-info text-white">Reject Filter</a>
 
 								<!-- <a href="{{route('ad-account-status-filter','Pending')}}" class="btn btn-warning">Pending</a> -->
 							</div><br>
 
+							<form action="{{route('ad-account-multiple-reject')}}" method="post">
+                                @csrf
+
+							<button type="submit" class="btn btn-danger mb-2">Multiple Reject</button>
+
 							<table id="example" class="table table-striped table-bordered" style="width:100%">
 								<thead>
 									<tr>
+										<th></th>
 										<th>SL</th>
 										<th>User</th>
 										<th>Ad Account</th>
@@ -49,9 +55,9 @@
 									@foreach($adAccountData as $adAccount)
 									@if(isset($adAccount))
 									<tr>
-										<td>{{ $loop->iteration }}</td>
+										<td><input type="checkbox" name="adAccountIds[{{$adAccount->id}}]" value="{{$adAccount->id}}"></td>
 
-										
+										<td>{{ $loop->iteration }}</td>
 										<td>
 											{{$adAccount->userData->name}} ({{$adAccount->userData->userID}})
 										</td>
@@ -135,6 +141,7 @@
 								</tbody>
 								
 							</table>
+						</form>
 						</div>
 					</div>
 				</div>

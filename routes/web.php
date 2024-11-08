@@ -54,6 +54,8 @@ Route::group(['middleware'=>'admin'],function(){
     Route::post('/user-balance-add', [App\Http\Controllers\admin\BalanceController::class, 'userBalanceAdd'])->name('user-balance-add');
 
     Route::get('/ad-account-list', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountList'])->name('ad-account-list');
+    Route::post('/ad-account-multiple-reject', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountMultipleReject'])->name('ad-account-multiple-reject');
+
     Route::get('/ad-account-daily-spending', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountDailySpending'])->name('ad-account-daily-spending');
     Route::get('/ad-account-card-4-digit', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountCarD4Digit'])->name('ad-account-card-4-digit');
     Route::get('/ad-account-social', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountSocial'])->name('ad-account-social');

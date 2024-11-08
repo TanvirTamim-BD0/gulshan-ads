@@ -2,6 +2,7 @@
 @section('content')
 
 <h1>Edit Ad Account</h1>
+<h4>{{$adAccount->ad_name}}({{$adAccount->ad_account_number}})</h4>
 
         <form action="{{route('update-ad-account',$adAccount->id)}}" method="post">
             @csrf

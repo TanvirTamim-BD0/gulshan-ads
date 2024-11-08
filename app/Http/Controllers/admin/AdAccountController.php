@@ -37,6 +37,18 @@ class AdAccountController extends Controller
         return view('admin.adAccount.adAccountList',compact('adAccountData','userData'));
     }
 
+    public function adAccountMultipleReject(Request $request)
+    {   
+        if($request->adAccountIds != ''){
+            foreach ($request->adAccountIds as $id) {
+                $adAccount = AdAccount::where('id',$id)->first();
+                $adAccount->status = 'Reject';
+                $adAccount->save();
+            }
+            return redirect()->back()->with('Successfully account reject');
+        }
+    }
+
     public function adAccountDailySpending()
     {   
         $adAccountData = AdAccount::orderBy('id','desc')->get();
@@ -411,6 +423,8 @@ class AdAccountController extends Controller
             $adAccountTopUp->status = 'Complete';
             $adAccountTopUp->confirmed_date = $current_time;
             $adAccountTopUp->save();
+
+            $adAccountData = AdAccount::where('id',$adAccountTopUp->ad_account_id)->first();
 
             $mail_data = [
                     'email' => $user->email,
