@@ -21,6 +21,8 @@ use App\Models\BusinessType;
 use App\Models\AdAccountFoundTransfer;
 use App\Models\AdAccountBMLinkRequest;
 use App\Models\AdAccountRefundRequest;
+use App\Models\TryHoldRequest;
+use App\Models\BillFailedRequest;
 
 class AdAccountController extends Controller
 {
@@ -417,6 +419,58 @@ class AdAccountController extends Controller
 
         return redirect()->route('home')->with('message','Successfully Refund Request Send');
     }
+
+
+
+    /*--- Try hold request-----*/
+    public function adAccountTryHold()
+    {   
+        $accountData = AdAccount::where('user_id',Auth::user()->id)->where('status','Created')->get();
+        return view('user.adAccount.tryHold',compact('accountData'));
+    }
+
+    public function adAccountTryHoldSubmit(Request $request)
+    {   
+        $request->validate([
+            'ad_account_ids' => 'required',
+        ]);
+
+        foreach($request->ad_account_ids as $ad_account_id){
+            $data = new TryHoldRequest();
+            $data->user_id = Auth::user()->id;
+            $data->ad_account_id = $ad_account_id;
+            $data->save();
+        }
+
+        return redirect()->route('home')->with('message','Successfully Try Hold Request Send');
+    }
+
+
+
+    /*---- bill failed request -------*/
+
+    public function adAccountBillFailed()
+    {   
+        $accountData = AdAccount::where('user_id',Auth::user()->id)->where('status','Created')->get();
+        return view('user.adAccount.billFailed',compact('accountData'));
+    }
+
+    public function adAccountBillFailedSubmit(Request $request)
+    {   
+        $request->validate([
+            'ad_account_ids' => 'required',
+        ]);
+
+        foreach($request->ad_account_ids as $ad_account_id){
+            $data = new BillFailedRequest();
+            $data->user_id = Auth::user()->id;
+            $data->ad_account_id = $ad_account_id;
+            $data->save();
+        }
+
+        return redirect()->route('home')->with('message','Successfully Bill Failed Request Send');
+    }
+
 
 
 }

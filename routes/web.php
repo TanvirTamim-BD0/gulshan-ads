@@ -108,6 +108,18 @@ Route::group(['middleware'=>'admin'],function(){
     Route::get('/ad-account-appeal-request-delete/{id}', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountAppealRequestDelete'])->name('ad-account-appeal-request-delete');
 
 
+    Route::get('/ad-account-try-hold-request', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountTryHoldRequest'])->name('ad-account-try-hold-request');
+    Route::get('/ad-account-try-hold-request-complete/{id}', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountTryHoldRequestComplete'])->name('ad-account-try-hold-request-complete');
+    Route::post('/ad-account-try-hold-request-reject/{id}', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountTryHoldRequestReject'])->name('ad-account-try-hold-request-reject');
+    Route::get('/ad-account-try-hold-request-delete/{id}', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountTryHoldRequestDelete'])->name('ad-account-try-hold-request-delete');
+
+
+    Route::get('/ad-account-bill-failed-request', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountBillFailedRequest'])->name('ad-account-bill-failed-request');
+    Route::get('/ad-account-bill-failed-request-complete/{id}', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountBillFailedRequestComplete'])->name('ad-account-bill-failed-request-complete');
+    Route::post('/ad-account-bill-failed-request-reject/{id}', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountBillFailedRequestReject'])->name('ad-account-bill-failed-request-reject');
+    Route::get('/ad-account-bill-failed-request-delete/{id}', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountBillFailedRequestDelete'])->name('ad-account-bill-failed-request-delete');
+
+
     Route::get('/ad-account-bm-link-request-view', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountBMLinkRequestView'])->name('ad-account-bm-link-request-view');
     Route::post('/ad-account-bm-link-reply/{id}', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountBmLinkReply'])->name('ad-account-bm-link-reply');
     Route::get('/ad-account-bm-link-request-delete/{id}', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountBmLinkRequestDelete'])->name('ad-account-bm-link-request-delete');
@@ -193,6 +205,8 @@ Route::group(['middleware'=>'admin'],function(){
     Route::get('/ad-account-appeal-request/{data}', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountAppealStatusFilter'])->name('ad-account-appeal-status-filter');
     Route::get('/ad-account-replace-request/{data}', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountReplaceStatusFilter'])->name('ad-account-replace-status-filter');
     Route::get('/ad-account-rename-request/{data}', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountRenameStatusFilter'])->name('ad-account-rename-status-filter');
+    Route::get('/ad-account-try-hold-request/{data}', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountTryHoldStatusFilter'])->name('ad-account-try-hold-status-filter');
+    Route::get('/ad-account-bill-failed-request/{data}', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountBillFailedStatusFilter'])->name('ad-account-bill-failed-status-filter');
 
     Route::get('/ad-account-refund-request-view/{data}', [App\Http\Controllers\admin\AdAccountController::class, 'adAccountRefundStatusFilter'])->name('ad-account-refund-status-filter');
 
@@ -248,6 +262,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/ad-account-refund-request', [App\Http\Controllers\user\AdAccountController::class, 'adAccountRefundRequest'])->name('ad-account-refund-request');
     Route::post('/ad-account-refund-request-submit', [App\Http\Controllers\user\AdAccountController::class, 'adAccountRefundRequestSubmit'])->name('ad-account-refund-request-submit');
+
+    Route::get('/ad-account-try-hold', [App\Http\Controllers\user\AdAccountController::class, 'adAccountTryHold'])->name('ad-account-try-hold');
+    Route::post('/ad-account-try-hold-submit', [App\Http\Controllers\user\AdAccountController::class, 'adAccountTryHoldSubmit'])->name('ad-account-try-hold-submit');
+
+    Route::get('/ad-account-bill-failed', [App\Http\Controllers\user\AdAccountController::class, 'adAccountBillFailed'])->name('ad-account-bill-failed');
+    Route::post('/ad-account-bill-failed-submit', [App\Http\Controllers\user\AdAccountController::class, 'adAccountBillFailedSubmit'])->name('ad-account-bill-failed-submit');
 
 
     Route::get('/services', [App\Http\Controllers\user\ServicesController::class, 'services'])->name('services');

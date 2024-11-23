@@ -20,6 +20,8 @@ use DateTime;
 use DateTimezone;
 use App\Models\AdAccountBMLinkRequest;
 use App\Models\AdAccountRefundRequest;
+use App\Models\TryHoldRequest;
+use App\Models\BillFailedRequest;
 
 class AdAccountController extends Controller
 {   
@@ -156,7 +158,7 @@ class AdAccountController extends Controller
             
             $user = User::where('id',$request->user_id)->first();
 
-            $mail_data = [
+            /*$mail_data = [
                     'email' => $user->email,
                     'from_name' => 'gulshanadspro@gmail.com',
                     'subject' => 'Gulshan Ads Mail',
@@ -168,7 +170,7 @@ class AdAccountController extends Controller
                 $message->to($mail_data['email'])
                         ->from($mail_data['from_name'])
                         ->subject($mail_data['subject']);
-                });
+                });*/
 
             $adAccount = AdAccount::where('id',$id)->first();        
             if($adAccount->update($data)){
@@ -924,5 +926,117 @@ class AdAccountController extends Controller
 
         return view('admin.adAccount.adAccountRefundRequest',compact('adAccountRefundData'));
     }
+
+
+
+    /*--------- Ad Account Try Hold Request Part -----------*/
+
+    public function adAccountTryHoldRequest()
+    {   
+        $adAccountTryHoldData = TryHoldRequest::orderBy('id','desc')->get();
+        return view('admin.adAccount.adAccountTryHold',compact('adAccountTryHoldData'));
+    }
+
+    public function adAccountTryHoldStatusFilter($data)
+    {   
+        if ($data == 'Complete') {
+            $adAccountTryHoldData = TryHoldRequest::orderBy('id','desc')->where('status','Complete')->get();
+        }elseif($data == 'Pending'){
+            $adAccountTryHoldData = TryHoldRequest::orderBy('id','desc')->where('status','Pending')->get();
+        }elseif($data == 'Reject'){
+            $adAccountTryHoldData = TryHoldRequest::orderBy('id','desc')->where('status','Reject')->get();
+        }
+
+        return view('admin.adAccount.adAccountTryHold',compact('adAccountTryHoldData'));
+    }
+
+
+    public function adAccountTryHoldRequestDelete($id)
+    {
+        $delete = TryHoldRequest::where('id',$id)->delete();
+        return redirect()->route('ad-account-try-hold-request')->with('message','Successfully Ad Account Try Hold Request Deleted');
+    }
+
+    public function adAccountTryHoldRequestComplete($id)
+    {
+        $dt = new DateTime('now', new DateTimezone('Asia/Dhaka'));
+        $current_time = $dt->format('Y-m-d g:i a');
+
+        $adAccountAppeal = TryHoldRequest::where('id',$id)->first();
+        $adAccountAppeal->status = 'Complete';
+        $adAccountAppeal->confirmed_date = $current_time;
+        $adAccountAppeal->save();
+
+        $user = User::where('id',$adAccountAppeal->user_id)->first();
+        $adAccountData = AdAccount::where('id',$adAccountAppeal->ad_account_id)->first();
+
+        return redirect()->back()->with('message','Successfully Ad Account Try Hold Complete');
+    }
+
+    public function adAccountTryHoldRequestReject(Request $request,$id)
+    {
+        $data = TryHoldRequest::where('id',$request->ad_account_appeal_id)->first();
+        $data->status = 'Reject';
+        $data->rejected_text = $request->rejected_text;
+        $data->save();
+
+        return redirect()->route('ad-account-try-hold-request')->with('message','Successfully Ad Account Try Hold Request Rejected');
+    }
+
+
+    /*--------- Ad Account Bill Failed Request Part -----------*/
+
+    public function adAccountBillFailedRequest()
+    {   
+        $adAccountBillFailedData = BillFailedRequest::orderBy('id','desc')->get();
+        return view('admin.adAccount.adAccountBillFailed',compact('adAccountBillFailedData'));
+    }
+
+    public function adAccountBillFailedStatusFilter($data)
+    {   
+        if ($data == 'Complete') {
+            $adAccountBillFailedData = BillFailedRequest::orderBy('id','desc')->where('status','Complete')->get();
+        }elseif($data == 'Pending'){
+            $adAccountBillFailedData = BillFailedRequest::orderBy('id','desc')->where('status','Pending')->get();
+        }elseif($data == 'Reject'){
+            $adAccountBillFailedData = BillFailedRequest::orderBy('id','desc')->where('status','Reject')->get();
+        }
+
+        return view('admin.adAccount.adAccountBillFailed',compact('adAccountBillFailedData'));
+    }
+
+
+    public function adAccountBillFailedRequestDelete($id)
+    {
+        $delete = BillFailedRequest::where('id',$id)->delete();
+        return redirect()->route('ad-account-bill-failed-request')->with('message','Successfully Ad Account Bill Failed Request Deleted');
+    }
+
+    public function adAccountBillFailedRequestComplete($id)
+    {
+        $dt = new DateTime('now', new DateTimezone('Asia/Dhaka'));
+        $current_time = $dt->format('Y-m-d g:i a');
+
+        $adAccountAppeal = BillFailedRequest::where('id',$id)->first();
+        $adAccountAppeal->status = 'Complete';
+        $adAccountAppeal->confirmed_date = $current_time;
+        $adAccountAppeal->save();
+
+        $user = User::where('id',$adAccountAppeal->user_id)->first();
+        $adAccountData = AdAccount::where('id',$adAccountAppeal->ad_account_id)->first();
+
+        return redirect()->back()->with('message','Successfully Ad Account Bill Failed Complete');
+    }
+
+    public function adAccountBillFailedRequestReject(Request $request,$id)
+    {
+        $data = BillFailedRequest::where('id',$request->ad_account_appeal_id)->first();
+        $data->status = 'Reject';
+        $data->rejected_text = $request->rejected_text;
+        $data->save();
+
+        return redirect()->route('ad-account-bill-failed-request')->with('message','Successfully Ad Account Bill Failed Request Rejected');
+    }
+
 
 }

@@ -168,6 +168,14 @@
                             </li>
 
                             <li>
+                                <a href="{{route('ad-account-try-hold-request')}}"><i class="bi bi-circle"></i>Try Hold Request</a>
+                            </li>
+
+                            <li>
+                                <a href="{{route('ad-account-bill-failed-request')}}"><i class="bi bi-circle"></i>Bill Failed Request</a>
+                            </li>
+
+                            <li>
                                 <a href="{{route('ad-account-refund-request-view')}}"><i class="bi bi-circle"></i>Refund Request</a>
                             </li>
 
