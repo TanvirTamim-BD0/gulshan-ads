@@ -20,7 +20,7 @@ class TiktokAdAccountRefundRequest extends Model
 
     public function adAccountData()
     {
-        return $this->belongsTo(AdAccount::class,'ad_account_id');
+        return $this->belongsTo(TiktokAdAccount::class,'ad_account_id');
     }
 
     public function userData()

@@ -334,6 +334,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/balance', [App\Http\Controllers\user\BalanceTopUpController::class, 'balance'])->name('balance');
     Route::post('/balance-top-up', [App\Http\Controllers\user\BalanceTopUpController::class, 'balanceTopUp'])->name('balance-top-up');
+
+
     Route::get('/ad-account-overview', [App\Http\Controllers\user\AdAccountController::class, 'adAccountOverview'])->name('ad-account-overview');
     Route::get('/ad-account-request-list', [App\Http\Controllers\user\AdAccountController::class, 'adAccountRequestList'])->name('ad-account-request-list');
     Route::get('/created-account', [App\Http\Controllers\user\AdAccountController::class, 'createdAccount'])->name('created-account');
@@ -341,11 +343,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/ad-account-edit/{id}', [App\Http\Controllers\user\AdAccountController::class, 'userAdAccountEdit'])->name('ad-account-edit');
     Route::post('/ad-account-edit-submit/{id}', [App\Http\Controllers\user\AdAccountController::class, 'adAccountEditSubmit'])->name('ad-account-edit-submit');
     
-
     Route::get('/ad-account-request-edit/{id}', [App\Http\Controllers\user\AdAccountController::class, 'userAdAccountRequestEdit'])->name('ad-account-request-edit');
     Route::post('/ad-account-request-edit-submit/{id}', [App\Http\Controllers\user\AdAccountController::class, 'adAccountRequestEditSubmit'])->name('ad-account-request-edit-submit');
-    
-    
 
     Route::get('/ad-account-request', [App\Http\Controllers\user\AdAccountController::class, 'adAccountRequest'])->name('ad-account-request');
     Route::post('/ad-account-request-submit', [App\Http\Controllers\user\AdAccountController::class, 'adAccountRequestSubmit'])->name('ad-account-request-submit');
@@ -356,14 +355,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/ad-account-found-transfer', [App\Http\Controllers\user\AdAccountController::class, 'adAccountFoundTransfer'])->name('ad-account-found-transfer');
     Route::post('/ad-account-found-transfer-submit', [App\Http\Controllers\user\AdAccountController::class, 'adAccountFoundTransferSubmit'])->name('ad-account-found-transfer-submit');
-    
 
     Route::get('/ad-account-transfer', [App\Http\Controllers\user\AdAccountController::class, 'adAccountTransfer'])->name('ad-account-transfer');
     Route::post('/ad-account-transfer-submit', [App\Http\Controllers\user\AdAccountController::class, 'adAccountTransferSubmit'])->name('ad-account-transfer-submit');
 
     Route::get('/ad-account-rename', [App\Http\Controllers\user\AdAccountController::class, 'adAccountRename'])->name('ad-account-rename');
     Route::post('/ad-account-rename-request-submit', [App\Http\Controllers\user\AdAccountController::class, 'adAccountRenameRequestSubmit'])->name('ad-account-rename-request-submit');
-    
 
     Route::get('/ad-account-appeal', [App\Http\Controllers\user\AdAccountController::class, 'adAccountAppeal'])->name('ad-account-appeal');
     Route::post('/ad-account-appeal-submit', [App\Http\Controllers\user\AdAccountController::class, 'adAccountAppealSubmit'])->name('ad-account-appeal-submit');
@@ -385,6 +382,67 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/ad-account-bill-failed-submit', [App\Http\Controllers\user\AdAccountController::class, 'adAccountBillFailedSubmit'])->name('ad-account-bill-failed-submit');
 
 
+
+    /*----- User Tiktok --------*/
+
+    Route::get('/tiktok-ad-account-overview', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountOverview'])->name('tiktok-ad-account-overview');
+    Route::get('/tiktok-ad-account-request-list', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountRequestList'])->name('tiktok-ad-account-request-list');
+    Route::get('/tiktok-created-account', [App\Http\Controllers\user\TiktokAdAccountController::class, 'createdAccount'])->name('tiktok-created-account');
+
+    Route::get('/tiktok-ad-account-edit/{id}', [App\Http\Controllers\user\TiktokAdAccountController::class, 'userAdAccountEdit'])->name('tiktok-ad-account-edit');
+    Route::post('/tiktok-ad-account-edit-submit/{id}', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountEditSubmit'])->name('tiktok-ad-account-edit-submit');
+    
+    Route::get('/tiktok-ad-account-request-edit/{id}', [App\Http\Controllers\user\TiktokAdAccountController::class, 'userAdAccountRequestEdit'])->name('tiktok-ad-account-request-edit');
+    Route::post('/tiktok-ad-account-request-edit-submit/{id}', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountRequestEditSubmit'])->name('tiktok-ad-account-request-edit-submit');
+
+    Route::get('/tiktok-ad-account-request', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountRequest'])->name('tiktok-ad-account-request');
+    Route::post('/tiktok-ad-account-request-submit', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountRequestSubmit'])->name('tiktok-ad-account-request-submit');
+
+    Route::get('/tiktok-ad-account-top-up', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountTopUp'])->name('tiktok-ad-account-top-up');
+    Route::post('/tiktok-ad-account-top-up-submit', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountTopUpSubmit'])->name('tiktok-ad-account-top-up-submit');
+
+
+    Route::get('/tiktok-ad-account-found-transfer', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountFoundTransfer'])->name('tiktok-ad-account-found-transfer');
+    Route::post('/tiktok-ad-account-found-transfer-submit', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountFoundTransferSubmit'])->name('tiktok-ad-account-found-transfer-submit');
+
+    Route::get('/tiktok-ad-account-transfer', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountTransfer'])->name('tiktok-ad-account-transfer');
+    Route::post('/tiktok-ad-account-transfer-submit', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountTransferSubmit'])->name('tiktok-ad-account-transfer-submit');
+
+    Route::get('/tiktok-ad-account-rename', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountRename'])->name('tiktok-ad-account-rename');
+    Route::post('/tiktok-ad-account-rename-request-submit', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountRenameRequestSubmit'])->name('tiktok-ad-account-rename-request-submit');
+
+    Route::get('/tiktok-ad-account-appeal', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountAppeal'])->name('tiktok-ad-account-appeal');
+    Route::post('/tiktok-ad-account-appeal-submit', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountAppealSubmit'])->name('tiktok-ad-account-appeal-submit');
+
+    Route::get('/tiktok-ad-account-replace', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountReplace'])->name('tiktok-ad-account-replace');
+    Route::post('/tiktok-ad-account-replace-submit', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountReplaceSubmit'])->name('tiktok-ad-account-replace-submit');
+
+    Route::get('/tiktok-ad-account-bm-link-request', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountBmLinkRequest'])->name('tiktok-ad-account-bm-link-request');
+    Route::post('/tiktok-ad-account-bm-link-request-submit', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountBmLinkRequestSubmit'])->name('tiktok-ad-account-bm-link-request-submit');
+
+
+    Route::get('/tiktok-ad-account-refund-request', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountRefundRequest'])->name('tiktok-ad-account-refund-request');
+    Route::post('/tiktok-ad-account-refund-request-submit', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountRefundRequestSubmit'])->name('tiktok-ad-account-refund-request-submit');
+
+    Route::get('/tiktok-ad-account-try-hold', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountTryHold'])->name('tiktok-ad-account-try-hold');
+    Route::post('/tiktok-ad-account-try-hold-submit', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountTryHoldSubmit'])->name('tiktok-ad-account-try-hold-submit');
+
+    Route::get('/tiktok-ad-account-bill-failed', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountBillFailed'])->name('tiktok-ad-account-bill-failed');
+    Route::post('/tiktok-ad-account-bill-failed-submit', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountBillFailedSubmit'])->name('tiktok-ad-account-bill-failed-submit');
+
+    /*-----End User Tiktok --------*/
+
+
+
+     Route::get('/ad-account-top-up-history', [App\Http\Controllers\user\AdAccountController::class, 'adAccountTopUpHistory'])->name('ad-account-top-up-history');
+     Route::get('/transfer-history', [App\Http\Controllers\user\AdAccountController::class, 'transferHistory'])->name('transfer-history');
+     Route::get('/appeal-history', [App\Http\Controllers\user\AdAccountController::class, 'appealHistory'])->name('appeal-history');
+     Route::get('/replace-history', [App\Http\Controllers\user\AdAccountController::class, 'replaceHistory'])->name('replace-history');
+     Route::get('/rename-history', [App\Http\Controllers\user\AdAccountController::class, 'renameHistory'])->name('rename-history');
+     Route::get('/service-buy-history', [App\Http\Controllers\user\AdAccountController::class, 'serviceBuyHistory'])->name('service-buy-history');
+         Route::get('/balance-top-up-history', [App\Http\Controllers\user\AdAccountController::class, 'balanceTopUpHistory'])->name('balance-top-up-history');
+
+
     Route::get('/services', [App\Http\Controllers\user\ServicesController::class, 'services'])->name('services');
     Route::post('/services', [App\Http\Controllers\user\ServicesController::class, 'servicesSearch'])->name('services.search');
     Route::get('/service-details/{id}', [App\Http\Controllers\user\ServicesController::class, 'serviceDetails'])->name('service-details');
@@ -400,15 +458,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/get-payment-type-wise-payment-method', [App\Http\Controllers\admin\PaymentMethodController::class, 'getPaymentTypeWisePaymentMethod'])->name('get-payment-type-wise-payment-method');
     Route::post('/get-payment-account', [App\Http\Controllers\admin\PaymentMethodController::class, 'getPaymentAccount'])->name('get-payment-account');
-
-
-     Route::get('/balance-top-up-history', [App\Http\Controllers\user\AdAccountController::class, 'balanceTopUpHistory'])->name('balance-top-up-history');
-     Route::get('/ad-account-top-up-history', [App\Http\Controllers\user\AdAccountController::class, 'adAccountTopUpHistory'])->name('ad-account-top-up-history');
-     Route::get('/transfer-history', [App\Http\Controllers\user\AdAccountController::class, 'transferHistory'])->name('transfer-history');
-     Route::get('/appeal-history', [App\Http\Controllers\user\AdAccountController::class, 'appealHistory'])->name('appeal-history');
-     Route::get('/replace-history', [App\Http\Controllers\user\AdAccountController::class, 'replaceHistory'])->name('replace-history');
-     Route::get('/rename-history', [App\Http\Controllers\user\AdAccountController::class, 'renameHistory'])->name('rename-history');
-     Route::get('/service-buy-history', [App\Http\Controllers\user\AdAccountController::class, 'serviceBuyHistory'])->name('service-buy-history');
 
      Route::get('/create-campaign', [App\Http\Controllers\user\CampaignController::class, 'createCampagin'])->name('create-campaign');
      Route::post('/campaign-submit', [App\Http\Controllers\user\CampaignController::class, 'campaginSubmit'])->name('campaign-submit');

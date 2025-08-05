@@ -21,12 +21,12 @@ class TiktokAdAccountFoundTransfer extends Model
 
     public function fromAdAccountData()
     {
-        return $this->belongsTo(AdAccount::class,'from_ad_account_id');
+        return $this->belongsTo(TiktokAdAccount::class,'from_ad_account_id');
     }
 
     public function transferAdAccountData()
     {
-        return $this->belongsTo(AdAccount::class,'transfer_ad_account_id');
+        return $this->belongsTo(TiktokAdAccount::class,'transfer_ad_account_id');
     }
 
     public function userData()

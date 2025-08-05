@@ -186,7 +186,7 @@
                     @if(auth('admin')->user()->can('meta-ad-accounts'))
                     <li>
                         <a href="javascript:;" class="has-arrow">
-                            <div class="parent-icon"><i class="bi bi-grid-fill"></i></div>
+                            <div class="parent-icon"><i class="bi bi-app"></i></div>
                             <div class="menu-title">Tiktok Ad Accounts</div>
                         </a>
                         <ul>

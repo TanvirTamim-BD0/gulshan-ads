@@ -316,7 +316,7 @@ class TiktokAdAccountController extends Controller
         $data['status'] = "Created";
         $data['confirmed_date'] = $current_time;
 
-        if(AdAccount::create($data)){
+        if(TiktokAdAccount::create($data)){
             $adAccountRequest = TiktokAdAccountRequest::where('id',$id)->first();
             $adAccountRequest->status = 'Created';
             $adAccountRequest->confirmed_date = $current_time;
