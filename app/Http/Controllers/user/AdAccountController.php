@@ -336,13 +336,13 @@ class AdAccountController extends Controller
 
     public function balanceTopUpHistory()
     {   
-        $balanceTopUpData = BalanceTopUp::where('user_id',Auth::user()->id)->get();
+        $balanceTopUpData = BalanceTopUp::where('user_id',Auth::user()->id)->orderBy('id','desc')->get();
         return view('user.history.balanceTopUpHistory',compact('balanceTopUpData'));
     }
 
     public function adAccountTopUpHistory()
     {
-        $adAccountTopUpData = AdAccountTopUp::where('user_id',Auth::user()->id)->get();
+        $adAccountTopUpData = AdAccountTopUp::where('user_id',Auth::user()->id)->orderBy('id','desc')->get();
         return view('user.history.adAccountTopUpHistory',compact('adAccountTopUpData'));
     }
 

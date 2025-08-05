@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('whatsapp_number')->nullable();
             $table->string('balance')->default(0);
+            $table->string('doller_rate')->default(0);
             $table->string('note')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

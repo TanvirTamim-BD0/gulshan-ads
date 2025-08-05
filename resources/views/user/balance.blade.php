@@ -172,14 +172,14 @@
                                         @enderror
                                     </div>
 
-                                    <!-- <div class="col-12">
+                                    <div class="col-12">
                                         <h6>BDT</h6>
                                         <input type="text" class="form-control" id="bdt" name="bdt" placeholder="BDT"  />
 
                                         @error('bdt')
                                         <span class=text-danger>{{$message}}</span>
                                         @enderror
-                                    </div> -->
+                                    </div>
 
                                     <div class="col-12">
                                         <h6>Screenshot of Confirmation</h6>
@@ -195,10 +195,8 @@
                                     </div>
 
 
-                                    <input type="hidden" id="dollaRate" value="{{$dollarRate->rate}}">
+                                    <input type="hidden" id="dollaRate" value="{{Auth::user()->doller_rate}}">
 
-
-                                    
 
                                     <div class="col-12">
                                         <div class="form-check">

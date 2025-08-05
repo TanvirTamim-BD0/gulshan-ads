@@ -94,6 +94,13 @@
                     @endphp
 
                     <li>
+                        <a>
+                            <div class="parent-icon"></div>
+                            <h6 class="logo-text text-white">Today $ Rate {{Auth::user()->doller_rate ?? ''}}</h6>
+                        </a>
+                    </li> 
+
+                    <li>
                         <a href="{{route('home')}}">
                             <div class="parent-icon"><i class="bi bi-house-fill"></i></div>
                             <div class="menu-title">Home</div>

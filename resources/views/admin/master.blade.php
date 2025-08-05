@@ -182,6 +182,95 @@
                         </ul>
                     </li>
                     @endif
+
+                    @if(auth('admin')->user()->can('meta-ad-accounts'))
+                    <li>
+                        <a href="javascript:;" class="has-arrow">
+                            <div class="parent-icon"><i class="bi bi-grid-fill"></i></div>
+                            <div class="menu-title">Tiktok Ad Accounts</div>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="javascript:;" class="has-arrow">
+                                    <div class="parent-icon"><i class="bi bi-person-badge"></i></div>
+                                    <div class="menu-title">Ad Accounts</div>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="{{route('tiktok-ad-account-list')}}"><i class="bi bi-circle"></i>Ad Accounts List</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{route('tiktok-ad-account-business-manager')}}"><i class="bi bi-circle"></i>Business Manager Id</a>
+                                    </li>
+
+                                    <!-- <li>
+                                        <a href="{{route('ad-account-card-4-digit')}}"><i class="bi bi-circle"></i>Card 4 Digit</a>
+                                    </li> -->
+
+                                   <!--  <li>
+                                        <a href="{{route('ad-account-daily-spending')}}"><i class="bi bi-circle"></i>Daily Spending</a>
+                                    </li> -->
+
+                                    <li>
+                                        <a href="{{route('tiktok-ad-account-social')}}"><i class="bi bi-circle"></i>Social</a>
+                                    </li>
+
+                                    
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="{{route('tiktok-create-ad-account')}}"><i class="bi bi-circle"></i>Create Ad Account</a>
+                            </li>
+
+                            <li>
+                                <a href="{{route('tiktok-ad-account-create-request')}}"><i class="bi bi-circle"></i>Ad Account Request</a>
+                            </li>
+
+                            @if(auth('admin')->user()->can('top-up-limit-request'))
+                            <li>
+                                <a href="{{route('tiktok-ad-account-top-up-request')}}"><i class="bi bi-circle"></i>Limit Request</a>
+                            </li>
+                            @endif
+
+                            <li>
+                                <a href="{{route('tiktok-ad-account-found-transfer-request')}}"><i class="bi bi-circle"></i>Fund Transfer Request</a>
+                            </li>
+                            
+                            <li>
+                                <a href="{{route('tiktok-ad-account-transfer-request')}}"><i class="bi bi-circle"></i>BM share/remove Request</a>
+                            </li>
+
+                            <li>
+                                <a href="{{route('tiktok-ad-account-bm-link-request-view')}}"><i class="bi bi-circle"></i>BM Link Request</a>
+                            </li>
+
+                            <li>
+                                <a href="{{route('tiktok-ad-account-appeal-request')}}"><i class="bi bi-circle"></i>Disabled Request</a>
+                            </li>
+                            <li>
+                                <a href="{{route('tiktok-ad-account-replace-request')}}"><i class="bi bi-circle"></i>Replace Request</a>
+                            </li>
+                            <li>
+                                <a href="{{route('tiktok-ad-account-rename-request')}}"><i class="bi bi-circle"></i>Rename Request</a>
+                            </li>
+
+                            <li>
+                                <a href="{{route('tiktok-ad-account-try-hold-request')}}"><i class="bi bi-circle"></i>Try Hold Request</a>
+                            </li>
+
+                            <li>
+                                <a href="{{route('tiktok-ad-account-bill-failed-request')}}"><i class="bi bi-circle"></i>Bill Failed Request</a>
+                            </li>
+
+                            <li>
+                                <a href="{{route('tiktok-ad-account-refund-request-view')}}"><i class="bi bi-circle"></i>Refund Request</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    @endif
                     
 
 

@@ -1,5 +1,13 @@
 @extends('admin.master')
 @section('content')
+ <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jquery-editable/css/jquery-editable.css" rel="stylesheet"/>
+
+    <script>$.fn.poshytip={defaults:null}</script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jquery-editable/js/jquery-editable-poshytip.min.js"></script>
+    
     <h6 class="mb-0 text-uppercase">User List</h6>
 				<hr/>
 
@@ -18,6 +26,7 @@
 										<th>ID</th>
 										<th>Name</th>
 										<th>Company Name</th>
+										<th>Doller Rate</th>
 										<th>Whatsapp Number</th>
 										<th>Email</th>
 										<th>Balance</th>
@@ -44,6 +53,13 @@
 										<td>{{$user->userID}}</td>
 										<td>{{$user->name}}</td>
 										<td>{{$user->company_name}}</td>
+
+										<td>
+	                                        <a href=""
+											class="update_doller_rate" data-name="doller_rate" data-type="text" data-pk="{{ $user->id }}" data-title="Doller Rate" >{{$user->doller_rate}}</a> 
+
+										</td>
+
 										<td>{{$user->whatsapp_number}}</td>
 										<td>{{$user->email}}</td>
 										<td>{{$user->balance}}</td>
@@ -70,4 +86,26 @@
 					</div>
 				</div>
 
+
+<script type="text/javascript">
+
+    $.fn.editable.defaults.mode = 'inline';
+    $.ajaxSetup({
+
+        headers: {
+            'X-CSRF-TOKEN': '{{csrf_token()}}'
+        }
+
+    }); 
+    $('.update_doller_rate').editable({
+           url: "{{ route('update-doller-rate') }}",
+           type: 'text',
+           pk: 1,
+           name: 'doller_rate',
+           title: 'Doller Rate'
+    });
+
+</script>
+
+s
 @endsection

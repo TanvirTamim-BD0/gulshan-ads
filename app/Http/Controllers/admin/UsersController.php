@@ -87,4 +87,17 @@ class UsersController extends Controller
         }
     }
 
+    public function updateDollerRate(Request $request)
+    {
+        if ($request->ajax()) {
+
+            $data = User::where('id',$request->pk)->first();
+            $data->doller_rate = $request->value;
+            $data->save();
+
+            return response()->json(['success' => true]);
+
+        }
+    }
+
 }

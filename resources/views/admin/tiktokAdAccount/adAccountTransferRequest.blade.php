@@ -1,6 +1,6 @@
 @extends('admin.master')
 @section('content')
-    <h6 class="mb-0 text-uppercase">Ad Account BM share/remove Request</h6>
+    <h6 class="mb-0 text-uppercase">Tiktok Ad Account BM share/remove Request</h6>
 				<hr/>
 
 				<div class="card">
@@ -8,11 +8,11 @@
 						<div class="table-responsive">
 
 							<div align="right">
-								<a href="{{route('ad-account-transfer-status-filter','Complete')}}" class="btn btn-success">Complete</a>
+								<a href="{{route('tiktok-ad-account-transfer-status-filter','Complete')}}" class="btn btn-success">Complete</a>
 
-								<a href="{{route('ad-account-transfer-status-filter','Reject')}}" class="btn btn-danger">Reject</a>
+								<a href="{{route('tiktok-ad-account-transfer-status-filter','Reject')}}" class="btn btn-danger">Reject</a>
 
-								<a href="{{route('ad-account-transfer-status-filter','Pending')}}" class="btn btn-warning">Pending</a>
+								<a href="{{route('tiktok-ad-account-transfer-status-filter','Pending')}}" class="btn btn-warning">Pending</a>
 							</div><br>
 							
 							<table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -36,7 +36,7 @@
 									@if(isset($adAccount))
 									<tr>
 										<td>
-											<a href="{{route('ad-account-transfer-request-delete',$adAccount->id)}}" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"><i class="bi bi-archive-fill"></i></a>
+											<a href="{{route('tiktok-ad-account-transfer-request-delete',$adAccount->id)}}" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"><i class="bi bi-archive-fill"></i></a>
 										</td>
 										<td>{{ $loop->iteration }}</td>
 										<td>{{$adAccount->userData->name ?? ''}} ({{$adAccount->userData->userID ?? ''}})</td>
@@ -58,7 +58,7 @@
 				                            <div class="table-actions  fs-6">
 				                            @if($adAccount->status == 'Complete')
 				                        	@else
-				                            <a href="{{route('ad-account-transfer-request-complete',$adAccount->id)}}" class="btn btn-sm btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Complete"><i class="bi bi-check-circle"></i> Complete</a><br>
+				                            <a href="{{route('tiktok-ad-account-transfer-request-complete',$adAccount->id)}}" class="btn btn-sm btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Complete"><i class="bi bi-check-circle"></i> Complete</a><br>
 				                            @endif
  
 				                            @if($adAccount->status == 'Reject')
@@ -79,7 +79,7 @@
                                         aria-labelledby="usd_detailsLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <form action="{{route('ad-account-transfer-request-reject',$adAccount->id)}}" method="post">
+                                                <form action="{{route('tiktok-ad-account-transfer-request-reject',$adAccount->id)}}" method="post">
                                                 @csrf	
                                                 <input type="hidden" name="ad_account_transfer_id" value="{{$adAccount->id}}">
                                                	<div class="modal-header">

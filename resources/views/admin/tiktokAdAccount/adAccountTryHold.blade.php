@@ -1,6 +1,6 @@
 @extends('admin.master')
 @section('content')
-    <h6 class="mb-0 text-uppercase">Ad Account BM share/remove Request</h6>
+    <h6 class="mb-0 text-uppercase">Tiktok Ad Account Try Hold Request</h6>
 				<hr/>
 
 				<div class="card">
@@ -8,11 +8,11 @@
 						<div class="table-responsive">
 
 							<div align="right">
-								<a href="{{route('ad-account-transfer-status-filter','Complete')}}" class="btn btn-success">Complete</a>
+								<a href="{{route('tiktok-ad-account-try-hold-status-filter','Complete')}}" class="btn btn-success">Complete</a>
 
-								<a href="{{route('ad-account-transfer-status-filter','Reject')}}" class="btn btn-danger">Reject</a>
+								<a href="{{route('tiktok-ad-account-try-hold-status-filter','Reject')}}" class="btn btn-danger">Rejected</a>
 
-								<a href="{{route('ad-account-transfer-status-filter','Pending')}}" class="btn btn-warning">Pending</a>
+								<a href="{{route('tiktok-ad-account-try-hold-status-filter','Pending')}}" class="btn btn-warning">Pending</a>
 							</div><br>
 							
 							<table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -22,9 +22,6 @@
 										<th>SL</th>
 										<th>User</th>
 										<th>Ad Account</th>
-										<th>Main Business Manager Id</th>
-										<th>Client Business Manager Id</th>
-										<th>Transfer Or Share</th>
 										<th>Confirmed Date</th>
 										<th class="text-center">Status</th>
 										<th>Action</th>
@@ -32,20 +29,18 @@
 								</thead>
 								<tbody>
 
-									@foreach($adAccountTransferData as $adAccount)
+									@foreach($adAccountTryHoldData as $adAccount)
 									@if(isset($adAccount))
 									<tr>
 										<td>
-											<a href="{{route('ad-account-transfer-request-delete',$adAccount->id)}}" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"><i class="bi bi-archive-fill"></i></a>
+											<a href="{{route('tiktok-ad-account-try-hold-request-delete',$adAccount->id)}}" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"><i class="bi bi-archive-fill"></i></a>	
 										</td>
 										<td>{{ $loop->iteration }}</td>
-										<td>{{$adAccount->userData->name ?? ''}} ({{$adAccount->userData->userID ?? ''}})</td>
-										<td>{{$adAccount->adAccountData->ad_name ?? ''}} ({{$adAccount->adAccountData->ad_account_number ?? ''}})</td>
-										<td>{{$adAccount->adAccountData->business_manager_id ?? ''}} </td>
-										<td>{{$adAccount->business_manager_id ?? ''}}</td>
-										<td>{{$adAccount->transfer_or_share ?? ''}}</td>
+										<td>{{$adAccount->userData->name}} ({{$adAccount->userData->userID}})</td>
+										<td>{{$adAccount->adAccountData->ad_name}} ({{$adAccount->adAccountData->ad_account_number}})</td>
 										<td>{{$adAccount->confirmed_date}}</td>
-
+									
+										
 										@if($adAccount->status == 'Complete')
 										<td class="text-center"><span class="badge bg-success text-white" style="padding: 10px;"> Complete </span></td>
 										@elseif($adAccount->status == 'Reject')
@@ -56,20 +51,22 @@
 										
 										<td>
 				                            <div class="table-actions  fs-6">
+				                            
 				                            @if($adAccount->status == 'Complete')
 				                        	@else
-				                            <a href="{{route('ad-account-transfer-request-complete',$adAccount->id)}}" class="btn btn-sm btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Complete"><i class="bi bi-check-circle"></i> Complete</a><br>
+				                            <a href="{{route('tiktok-ad-account-try-hold-request-complete',$adAccount->id)}}" class="btn btn-sm btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Complete"><i class="bi bi-check-circle"></i> Complete</a><br>
 				                            @endif
  
 				                            @if($adAccount->status == 'Reject')
 				                            @else
-				                            <a href="javascript:;" data-bs-toggle="modal"
-	                                        data-bs-target="#rejectedData{{$adAccount->id}}"  class="btn btn-sm btn-danger" style="margin-top: 5px;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Reject"><i class="bi bi-file-earmark-x"></i> Reject</a><br>
+				                            <a href="javascript:;" style="margin-top: 5px;" data-bs-toggle="modal"
+	                                        data-bs-target="#rejectedData{{$adAccount->id}}"  class="btn btn-sm btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Reject"><i class="bi bi-file-earmark-x"></i> Rejected</a><br>
 	                                        @endif
-
-	                                        <br>
 	                                        
+	                                        <br>
+
 				                            </div>
+
 				                         </td>
 
 									</tr>
@@ -79,9 +76,9 @@
                                         aria-labelledby="usd_detailsLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <form action="{{route('ad-account-transfer-request-reject',$adAccount->id)}}" method="post">
-                                                @csrf	
-                                                <input type="hidden" name="ad_account_transfer_id" value="{{$adAccount->id}}">
+                                                <form action="{{route('tiktok-ad-account-try-hold-request-reject',$adAccount->id)}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="ad_account_appeal_id" value="{{$adAccount->id}}">
                                                	<div class="modal-header">
                                                     <h5 class="modal-title" id="usd_detailsLabel">Rejected Text</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -110,9 +107,9 @@
                                         </div>
                                     </div>
 
-                                    @endif
+									@endif
 									@endforeach
-									
+
 								</tbody>
 								
 							</table>

@@ -166,6 +166,7 @@
                           <table id="example1" class="table align-middle mb-0">
                               <thead class="table-light">
                                   <tr>
+                                      <th>SL</th>
                                       <th>Ad Account Name</th>
                                       <th>Date</th>
                                       <th>Top-Up Amount</th>
@@ -178,6 +179,7 @@
                                 @foreach($adAccountTopUpData as $adAccountTopUp)
                                 @if(isset($adAccountTopUp))
                                 <tr>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{$adAccountTopUp->adAccountData->ad_name}} ({{$adAccountTopUp->adAccountData->ad_account_number}})</td>
                                     <td> {{ $adAccountTopUp->created_at->format('d M Y')}} </td>
                                     <td>{{$adAccountTopUp->amount}}</td>
@@ -327,7 +329,7 @@
                               @if(isset($account))
                               <tr>  
                                 
-                                    <td>{{$account->adAccountData->ad_name}}</td>
+                                    <td>{{$account->adAccountData->ad_name ?? ''}}</td>
                                     <td>{{$account->business_manager_id}}</td>
                                     <td>{{$account->transfer_or_share}}</td>
                                   

@@ -26,6 +26,7 @@ class User extends Authenticatable
         'whatsapp_number',
         'password',
         'balance',
+        'doller_rate',
         'note',
     ];
 
