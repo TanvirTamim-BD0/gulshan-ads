@@ -213,6 +213,133 @@
             <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
+                            <h5 class="mb-0">Tiktok Ad Account Request</h5>
+                        </div>
+                        <div class="table-responsive mt-3">
+                            <table id="" class="table align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>User</th>
+                                        <th>Website</th>
+                                        <th>Business Manager Id</th>
+                                        <th class="text-center">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                  @foreach($tiktokAdAccountRequestData as $adAccount)
+                                    @if(isset($adAccount))
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{$adAccount->userData->name}} ({{$adAccount->userData->userID}})</td>
+                                        <td>{{$adAccount->website_url}}</td>
+                                        <td>{{$adAccount->business_manager_id}}</td>
+
+                                        <td class="text-center"><span class="badge bg-warning text-white" style="padding: 10px;"> Pending </span></td>
+                                        
+                                    </tr>
+
+                                    @endif
+                                    @endforeach
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <h5 class="mb-0"> Tiktok Ad Account Balance TopUp Request</h5>
+                        </div>
+                        <div class="table-responsive mt-3">
+                            <table id="" class="table align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>User</th>
+                                        <th>Ad Account</th>
+                                        <th>Amount</th>
+                                        <th>Note</th>
+                                        <th class="text-center">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                  @foreach($tiktokAdAccountTopUpData as $adAccount)
+                                    @if(isset($adAccount))
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{$adAccount->userData->name}} ({{$adAccount->userData->userID}})</td>
+                                        <td>{{$adAccount->adAccountData->ad_name}} ({{$adAccount->adAccountData->ad_account_number}}) </td>
+                                        <td>{{$adAccount->amount}}</td>
+                                        <td>{{$adAccount->note}}</td>
+
+                                        <td class="text-center"><span class="badge bg-warning text-white" style="padding: 10px;"> Pending </span></td>
+                                    </tr>
+
+                                    @endif
+                                    @endforeach
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <h5 class="mb-0">Tiktok Ad Account Fund Transfer Request</h5>
+                        </div>
+                        <div class="table-responsive mt-3">
+                            <table id="" class="table align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>User</th>
+                                        <th>From Ad Account</th>
+                                        <th>Transfer Ad Account</th>
+                                        <th>Amount</th>
+                                        <th class="text-center">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                  @foreach($tiktokAdAccountFoundTransferData as $adAccountFoundTransfer)
+                                    @if(isset($adAccountFoundTransfer))
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{$adAccountFoundTransfer->userData->name}} ({{$adAccountFoundTransfer->userData->userID}})</td>
+
+                                        <td>{{$adAccountFoundTransfer->fromAdAccountData->ad_name}} ({{$adAccountFoundTransfer->fromAdAccountData->ad_account_number}})</td>
+
+                                        <td>{{$adAccountFoundTransfer->transferAdAccountData->ad_name}} ({{$adAccountFoundTransfer->transferAdAccountData->ad_account_number}})</td>
+                                        <td>{{$adAccountFoundTransfer->transfer_amount}}</td>
+
+                                        <td class="text-center"><span class="badge bg-warning text-white" style="padding: 10px;"> Pending </span></td>
+                                    </tr>
+
+                                    @endif
+                                    @endforeach
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
                             <h5 class="mb-0">Service Buy Request</h5>
                         </div>
                         <div class="table-responsive mt-3">

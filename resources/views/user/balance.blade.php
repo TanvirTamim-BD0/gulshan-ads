@@ -134,8 +134,7 @@
                                         <h6>Select Payment Type</h6>
                                         <select class="single-select" id="paymentType" onchange="getPaymentMethod(value)" required>
                                           <option selected disabled>Select Payment Type</option>
-                                          <option value="Bank">Bank</option>  
-                                          <option value="Mobile Banking">Mobile Banking</option>         
+                                          <option value="Bank">Bank</option>           
                                         </select>
                                     </div>
 

@@ -12,7 +12,10 @@ use App\Models\BuyService;
 use App\Models\DollarRate;
 use App\Models\AdAccount;
 use App\Models\AdAccountFoundTransfer;
-
+use App\Models\TiktokAdAccountRequest;
+use App\Models\TiktokAdAccount;
+use App\Models\TiktokAdAccountFoundTransfer;
+use App\Models\TiktokAdAccountTopUp;
 
 class AdminController extends Controller
 {
@@ -45,9 +48,12 @@ class AdminController extends Controller
         $adAccountTopUpData = AdAccountTopUp::where('status','Pending')->orderBy('id','desc')->limit(10)->get();
         $adAccountRequestData = AdAccountRequest::where('status','Pending')->orderBy('id','desc')->limit(10)->get();
         $adAccountFoundTransferData = AdAccountFoundTransfer::where('status','Pending')->orderBy('id','desc')->limit(10)->get();
+        $tiktokAdAccountTopUpData = TiktokAdAccountTopUp::where('status','Pending')->orderBy('id','desc')->limit(10)->get();
+        $tiktokAdAccountRequestData = TiktokAdAccountRequest::where('status','Pending')->orderBy('id','desc')->limit(10)->get();
+        $tiktokAdAccountFoundTransferData = TiktokAdAccountFoundTransfer::where('status','Pending')->orderBy('id','desc')->limit(10)->get();
         $buyServiceData = BuyService::orderBy('id','desc')->limit(10)->get();
         $rate = DollarRate::first();
-        return view('admin.dashboard',compact('balanceTopUpData','adAccountTopUpData','adAccountRequestData','buyServiceData','rate','adAccountFoundTransferData'));
+        return view('admin.dashboard',compact('balanceTopUpData','adAccountTopUpData','adAccountRequestData','buyServiceData','rate','adAccountFoundTransferData','tiktokAdAccountTopUpData','tiktokAdAccountRequestData','tiktokAdAccountFoundTransferData'));
     }
 
 

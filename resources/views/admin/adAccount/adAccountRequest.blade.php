@@ -25,6 +25,7 @@
 										<th>SL</th>
 										<th>User</th>
 										<th>Account Name</th>
+										<th>Balance</th>
 										<th>Facebook Page</th>
 										<th>Website</th>
 										<th>Business Manager Id</th>
@@ -44,6 +45,7 @@
 										<td>{{ $loop->iteration }}</td>
 										<td>{{$adAccount->userData->name}} ({{$adAccount->userData->userID}})</td>
 										<td>{{$adAccount->account_name}}</td>
+										<td>{{$adAccount->userData->balance}}</td>
 										<td>
 											<a href="#" data-bs-toggle="modal"
 	                                        data-bs-target="#details{{$adAccount->id}}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View"><i class="bi bi-eye"></i> View</a>
