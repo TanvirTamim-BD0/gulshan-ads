@@ -210,7 +210,7 @@
                             </li>
 
                             <li>
-                                <a href="{{route('ad-account-appeal')}}"><i class="bi bi-circle"></i>Account Disabled</a>
+                                <a href="{{route('tiktok-ad-account-appeal')}}"><i class="bi bi-circle"></i>Account Disabled</a>
                             </li>
                             <li>
                                 <a href="{{route('tiktok-ad-account-replace')}}"><i class="bi bi-circle"></i>Account Replace</a>
@@ -229,6 +229,66 @@
 
                             <li>
                                 <a href="{{route('tiktok-ad-account-refund-request')}}"><i class="bi bi-circle"></i>Refund Request</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="{{ request()->is('ad-account-edit*') ? 'mm-active' : '' }}">
+                        <a href="javascript:;" class="has-arrow">
+                            <div class="parent-icon"><i class="bi bi-google"></i></div>
+                            <div class="menu-title">Google Ad Accounts</div>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="{{route('google-ad-account-overview')}}"><i class="bi bi-circle"></i>Overview</a>
+                            </li>
+
+                            <li>
+                                <a href="{{route('google-ad-account-request-list')}}"><i class="bi bi-circle"></i>Account Request List</a>
+                            </li>
+
+                            <li>
+                                <a href="{{route('google-created-account')}}"><i class="bi bi-circle"></i>Created Account</a>
+                            </li>
+                            <li>
+                                <a href="{{route('google-ad-account-request')}}"><i class="bi bi-circle"></i>Account Request</a>
+                            </li>
+                            <li>
+                                <a href="{{route('google-ad-account-top-up')}}"><i class="bi bi-circle"></i>Limit Request</a>
+                            </li>
+
+                            <li>
+                                <a href="{{route('google-ad-account-found-transfer')}}"><i class="bi bi-circle"></i>Fund Transfer</a>
+                            </li>
+
+                            <li>
+                                <a href="{{route('google-ad-account-transfer')}}"><i class="bi bi-circle"></i>BM share/remove</a>
+                            </li>
+
+                            <li>
+                                <a href="{{route('google-ad-account-bm-link-request')}}"><i class="bi bi-circle"></i>BM Link Request</a>
+                            </li>
+
+                            <li>
+                                <a href="{{route('google-ad-account-appeal')}}"><i class="bi bi-circle"></i>Account Disabled</a>
+                            </li>
+                            <li>
+                                <a href="{{route('google-ad-account-replace')}}"><i class="bi bi-circle"></i>Account Replace</a>
+                            </li>
+                            <li>
+                                <a href="{{route('google-ad-account-rename')}}"><i class="bi bi-circle"></i>Account Rename</a>
+                            </li>
+
+                            <li>
+                                <a href="{{route('google-ad-account-try-hold')}}"><i class="bi bi-circle"></i>Try Hold Request </a>
+                            </li>
+
+                            <li>
+                                <a href="{{route('google-ad-account-bill-failed')}}"><i class="bi bi-circle"></i>Bill Failed Request</a>
+                            </li>
+
+                            <li>
+                                <a href="{{route('google-ad-account-refund-request')}}"><i class="bi bi-circle"></i>Refund Request</a>
                             </li>
                         </ul>
                     </li>

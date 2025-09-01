@@ -267,6 +267,111 @@ Route::group(['middleware'=>'admin'],function(){
     /*-----End Tiktok Ad Account------*/
 
 
+    /*----------- Google Ad Account-----------*/
+    Route::get('/google-ad-account-list', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'AdAccountList'])->name('google-ad-account-list');
+    Route::post('/google-ad-account-multiple-reject', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'AdAccountMultipleReject'])->name('google-ad-account-multiple-reject');
+
+    Route::get('/google-ad-account-daily-spending', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountDailySpending'])->name('google-ad-account-daily-spending');
+    Route::get('/google-ad-account-card-4-digit', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountCarD4Digit'])->name('google-ad-account-card-4-digit');
+    Route::get('/google-ad-account-social', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountSocial'])->name('google-ad-account-social');
+    Route::get('/google-ad-account-business-manager', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountBusinessManager'])->name('google-ad-account-business-manager');
+
+
+    Route::get('/google-ad-account-settings', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountSettings'])->name('google-ad-account-settings');
+    Route::post('/google-ad-account-settings-submit', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountSettingsSubmit'])->name('google-ad-account-settings-submit');
+    
+    
+    Route::get('/google-ad-account-status-complete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountStatusComplete'])->name('google-ad-account-status-complete');
+    Route::post('/google-ad-account-status-reject', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountStatusReject'])->name('google-ad-account-status-reject');
+    Route::get('/google-edit-ad-account/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'editAdAccount'])->name('google-edit-ad-account');
+    Route::post('/google-update-ad-account/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'updateAdAccount'])->name('google-update-ad-account');
+    Route::post('/google-update-account-name-user/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'updateAccountNameUser'])->name('google-update-account-name-user');
+    
+    
+    Route::get('/google-create-ad-account', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'createAdAccount'])->name('google-create-ad-account');
+    Route::post('/google-manual-create-ad-account', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'manualCreateAdAccount'])->name('google-manual-create-ad-account');
+    Route::get('/google-ad-account-create/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountCreate'])->name('google-ad-account-create');
+    Route::post('/google-ad-account-create-submit/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountCreateSubmit'])->name('google-ad-account-create-submit');
+
+    Route::get('/google-ad-account-create-request', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountCreateRequest'])->name('google-ad-account-create-request');
+    Route::post('/google-ad-account-request-reject', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountRequestReject'])->name('google-ad-account-request-reject');
+
+    Route::get('/google-ad-account-top-up-request', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountTopUpRequest'])->name('google-ad-account-top-up-request');
+    Route::get('/google-ad-account-top-up-request-complete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountTopUpRequestComplete'])->name('google-ad-account-top-up-request-complete');
+    Route::get('/google-ad-account-top-up-request-reject/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountTopUpRequestReject'])->name('google-ad-account-top-up-request-reject');
+    Route::get('/google-ad-account-top-up-request-delete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountTopUpRequestDelete'])->name('google-ad-account-top-up-request-delete');
+    Route::get('/google-ad-account-top-up-request-edit/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountTopUpRequestEdit'])->name('google-ad-account-top-up-request-edit');
+    Route::post('/google-ad-account-top-up-request-update/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountTopUpRequestUpdate'])->name('google-ad-account-top-up-request-update');
+
+    Route::get('/google-ad-account-found-transfer-request', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountFoundTransferRequest'])->name('google-ad-account-found-transfer-request');
+    Route::get('/google-ad-account-found-transfer-request-complete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountFoundTransferRequestComplete'])->name('google-ad-account-found-transfer-request-complete');
+    Route::post('/google-ad-account-found-transfer-request-reject/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountFoundTransferRequestReject'])->name('google-ad-account-found-transfer-request-reject');
+    Route::get('/google-ad-account-found-transfer-request-delete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountFoundTransferRequestDelete'])->name('google-ad-account-found-transfer-request-delete');
+
+
+    Route::get('/google-ad-account-transfer-request', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountTransferRequest'])->name('google-ad-account-transfer-request');
+    Route::get('/google-ad-account-transfer-request-complete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountTransferRequestComplete'])->name('google-ad-account-transfer-request-complete');
+    Route::post('/google-ad-account-transfer-request-reject/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountTransferRequestReject'])->name('google-ad-account-transfer-request-reject');
+    Route::get('/google-ad-account-transfer-request-delete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountTransferRequestDelete'])->name('google-ad-account-transfer-request-delete');
+
+    Route::get('/google-ad-account-appeal-request', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountAppealRequest'])->name('google-ad-account-appeal-request');
+    Route::get('/google-ad-account-appeal-request-complete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountAppealRequestComplete'])->name('google-ad-account-appeal-request-complete');
+    Route::post('/google-ad-account-appeal-request-reject/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountAppealRequestReject'])->name('google-ad-account-appeal-request-reject');
+    Route::get('/google-ad-account-appeal-request-delete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountAppealRequestDelete'])->name('google-ad-account-appeal-request-delete');
+
+
+    Route::get('/google-ad-account-try-hold-request', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountTryHoldRequest'])->name('google-ad-account-try-hold-request');
+    Route::get('/google-ad-account-try-hold-request-complete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountTryHoldRequestComplete'])->name('google-ad-account-try-hold-request-complete');
+    Route::post('/google-ad-account-try-hold-request-reject/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountTryHoldRequestReject'])->name('google-ad-account-try-hold-request-reject');
+    Route::get('/google-ad-account-try-hold-request-delete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountTryHoldRequestDelete'])->name('google-ad-account-try-hold-request-delete');
+
+
+    Route::get('/google-ad-account-bill-failed-request', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountBillFailedRequest'])->name('google-ad-account-bill-failed-request');
+    Route::get('/google-ad-account-bill-failed-request-complete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountBillFailedRequestComplete'])->name('google-ad-account-bill-failed-request-complete');
+    Route::post('/google-ad-account-bill-failed-request-reject/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountBillFailedRequestReject'])->name('google-ad-account-bill-failed-request-reject');
+    Route::get('/google-ad-account-bill-failed-request-delete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountBillFailedRequestDelete'])->name('google-ad-account-bill-failed-request-delete');
+
+
+    Route::get('/google-ad-account-bm-link-request-view', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountBMLinkRequestView'])->name('google-ad-account-bm-link-request-view');
+    Route::post('/google-ad-account-bm-link-reply/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountBmLinkReply'])->name('google-ad-account-bm-link-reply');
+    Route::get('/google-ad-account-bm-link-request-delete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountBmLinkRequestDelete'])->name('google-ad-account-bm-link-request-delete');
+
+    Route::get('/google-ad-account-refund-request-view', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountRefundRequestView'])->name('google-ad-account-refund-request-view');
+    Route::get('/google-ad-account-refund-request-complete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountRefundRequestComplete'])->name('google-ad-account-refund-request-complete');
+    Route::post('/google-ad-account-refund-request-reject/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountRefundRequestReject'])->name('google-ad-account-refund-request-reject');
+    Route::get('/google-ad-account-refund-request-delete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountRefundRequestDelete'])->name('google-ad-account-refund-request-delete');
+
+
+    Route::get('/google-ad-account-replace-request', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountReplaceRequest'])->name('google-ad-account-replace-request');
+    Route::get('/google-ad-account-replace-request-complete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountReplaceRequestComplete'])->name('google-ad-account-replace-request-complete');
+    Route::post('/google-ad-account-replace-request-reject/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountReplaceRequestReject'])->name('google-ad-account-replace-request-reject');
+    Route::get('/google-ad-account-raplace-request-delete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountReplaceRequestDelete'])->name('google-ad-account-raplace-request-delete');
+
+
+    Route::get('/google-ad-account-rename-request', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountRenameRequest'])->name('google-ad-account-rename-request');
+    Route::post('/google-ad-account-rename-request-complete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountRenameRequestComplete'])->name('google-ad-account-rename-request-complete');
+    Route::post('/google-ad-account-rename-request-reject/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountRenameRequestReject'])->name('google-ad-account-rename-request-reject');
+    Route::get('/google-ad-account-rename-request-delete/{id}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountRenameRequestDelete'])->name('google-ad-account-rename-request-delete');
+
+    Route::get('/google-ad-account-create-request/{data}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountRequestStatusFilter'])->name('google-ad-account-request-status-filter');
+    Route::get('/google-ad-account-top-up-request/{data}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountTopUpStatusFilter'])->name('google-ad-account-topup-status-filter');
+    Route::get('/google-ad-account-transfer-request/{data}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountTransferStatusFilter'])->name('google-ad-account-transfer-status-filter');
+    Route::get('/google-ad-account-appeal-request/{data}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountAppealStatusFilter'])->name('google-ad-account-appeal-status-filter');
+    Route::get('/google-ad-account-replace-request/{data}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountReplaceStatusFilter'])->name('google-ad-account-replace-status-filter');
+    Route::get('/google-ad-account-rename-request/{data}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountRenameStatusFilter'])->name('google-ad-account-rename-status-filter');
+    Route::get('/google-ad-account-try-hold-request/{data}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountTryHoldStatusFilter'])->name('google-ad-account-try-hold-status-filter');
+    Route::get('/google-ad-account-bill-failed-request/{data}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountBillFailedStatusFilter'])->name('google-ad-account-bill-failed-status-filter');
+
+    Route::get('/google-ad-account-refund-request-view/{data}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountRefundStatusFilter'])->name('google-ad-account-refund-status-filter');
+
+    Route::post('/google-update-account-data', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'updateAccountData'])->name('google-update-account-data');
+    Route::post('/google-update-ad-account-balance', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'updateAddAccountBalance'])->name('google-update-ad-account-balance');
+    Route::post('/google-update-account-bmi', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'updateAccountBmi'])->name('google-update-account-bmi');
+    Route::get('/google-ad-account-list/{data}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountStatusFilter'])->name('google-ad-account-status-filter');
+
+    /*-----End Tiktok Ad Account------*/
+
+
 
 
     Route::resource('service', ServiceController::class);
@@ -431,6 +536,57 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/tiktok-ad-account-bill-failed-submit', [App\Http\Controllers\user\TiktokAdAccountController::class, 'adAccountBillFailedSubmit'])->name('tiktok-ad-account-bill-failed-submit');
 
     /*-----End User Tiktok --------*/
+
+
+
+    /*----- User Google --------*/
+
+    Route::get('/google-ad-account-overview', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountOverview'])->name('google-ad-account-overview');
+    Route::get('/google-ad-account-request-list', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountRequestList'])->name('google-ad-account-request-list');
+    Route::get('/google-created-account', [App\Http\Controllers\user\GoogleAdAccountController::class, 'createdAccount'])->name('google-created-account');
+
+    Route::get('/google-ad-account-edit/{id}', [App\Http\Controllers\user\GoogleAdAccountController::class, 'userAdAccountEdit'])->name('google-ad-account-edit');
+    Route::post('/google-ad-account-edit-submit/{id}', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountEditSubmit'])->name('google-ad-account-edit-submit');
+    
+    Route::get('/google-ad-account-request-edit/{id}', [App\Http\Controllers\user\GoogleAdAccountController::class, 'userAdAccountRequestEdit'])->name('google-ad-account-request-edit');
+    Route::post('/google-ad-account-request-edit-submit/{id}', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountRequestEditSubmit'])->name('google-ad-account-request-edit-submit');
+
+    Route::get('/google-ad-account-request', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountRequest'])->name('google-ad-account-request');
+    Route::post('/google-ad-account-request-submit', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountRequestSubmit'])->name('google-ad-account-request-submit');
+
+    Route::get('/google-ad-account-top-up', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountTopUp'])->name('google-ad-account-top-up');
+    Route::post('/google-ad-account-top-up-submit', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountTopUpSubmit'])->name('google-ad-account-top-up-submit');
+
+
+    Route::get('/google-ad-account-found-transfer', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountFoundTransfer'])->name('google-ad-account-found-transfer');
+    Route::post('/google-ad-account-found-transfer-submit', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountFoundTransferSubmit'])->name('google-ad-account-found-transfer-submit');
+
+    Route::get('/google-ad-account-transfer', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountTransfer'])->name('google-ad-account-transfer');
+    Route::post('/google-ad-account-transfer-submit', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountTransferSubmit'])->name('google-ad-account-transfer-submit');
+
+    Route::get('/google-ad-account-rename', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountRename'])->name('google-ad-account-rename');
+    Route::post('/google-ad-account-rename-request-submit', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountRenameRequestSubmit'])->name('google-ad-account-rename-request-submit');
+
+    Route::get('/google-ad-account-appeal', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountAppeal'])->name('google-ad-account-appeal');
+    Route::post('/google-ad-account-appeal-submit', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountAppealSubmit'])->name('google-ad-account-appeal-submit');
+
+    Route::get('/google-ad-account-replace', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountReplace'])->name('google-ad-account-replace');
+    Route::post('/google-ad-account-replace-submit', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountReplaceSubmit'])->name('google-ad-account-replace-submit');
+
+    Route::get('/google-ad-account-bm-link-request', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountBmLinkRequest'])->name('google-ad-account-bm-link-request');
+    Route::post('/google-ad-account-bm-link-request-submit', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountBmLinkRequestSubmit'])->name('google-ad-account-bm-link-request-submit');
+
+
+    Route::get('/google-ad-account-refund-request', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountRefundRequest'])->name('google-ad-account-refund-request');
+    Route::post('/google-ad-account-refund-request-submit', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountRefundRequestSubmit'])->name('google-ad-account-refund-request-submit');
+
+    Route::get('/google-ad-account-try-hold', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountTryHold'])->name('google-ad-account-try-hold');
+    Route::post('/google-ad-account-try-hold-submit', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountTryHoldSubmit'])->name('google-ad-account-try-hold-submit');
+
+    Route::get('/google-ad-account-bill-failed', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountBillFailed'])->name('google-ad-account-bill-failed');
+    Route::post('/google-ad-account-bill-failed-submit', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountBillFailedSubmit'])->name('google-ad-account-bill-failed-submit');
+
+    /*-----End Google Tiktok --------*/
 
 
 

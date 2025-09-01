@@ -1,0 +1,37 @@
+
+                                    <!-- Rejected Text -->
+                                    <!-- <div class="modal fade" id="rejectedData{{$adAccount->id}}" tabindex="-1"
+                                        aria-labelledby="usd_detailsLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form action="{{route('ad-account-status-reject')}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="ad_account_id" value="{{$adAccount->id}}">
+                                               	<div class="modal-header">
+                                                    <h5 class="modal-title" id="usd_detailsLabel">Rejected Text</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-lg-12">
+                                                            
+                                                            	<textarea class="form-control" cols="20" rows="5" name="rejected_text">
+                                                            		
+                                                            	</textarea>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                     <button type="submit" class="btn btn-primary"
+                                                        data-bs-dismiss="modal">Submit</button>
+                                                </div>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div> -->

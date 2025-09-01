@@ -4,26 +4,26 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\TiktokAdAccount;
-use App\Models\TiktokAdAccountTopUp;
-use App\Models\TiktokAdAccountTransfer;
-use App\Models\TiktokAdAccountRequest;
-use App\Models\TiktokAdAccountAppeal;
-use App\Models\TiktokAdAccountReplace;
+use App\Models\GoogleAdAccount;
+use App\Models\GoogleAdAccountTopUp;
+use App\Models\GoogleAdAccountTransfer;
+use App\Models\GoogleAdAccountRequest;
+use App\Models\GoogleAdAccountAppeal;
+use App\Models\GoogleAdAccountReplace;
 use Carbon\Carbon;
 use App\Models\User;
 use Auth;
-use App\Models\TiktokAdAccountSetting;
-use App\Models\TiktokAdAccountRenameRequest;
-use App\Models\TiktokAdAccountFoundTransfer;
+use App\Models\GoogleAdAccountSetting;
+use App\Models\GoogleAdAccountRenameRequest;
+use App\Models\GoogleAdAccountFoundTransfer;
 use DateTime;
 use DateTimezone;
-use App\Models\TiktokAdAccountBMLinkRequest;
-use App\Models\TiktokAdAccountRefundRequest;
-use App\Models\TiktokTryHoldRequest;
-use App\Models\TiktokBillFailedRequest;
+use App\Models\GoogleAdAccountBMLinkRequest;
+use App\Models\GoogleAdAccountRefundRequest;
+use App\Models\GoogleTryHoldRequest;
+use App\Models\GoogleBillFailedRequest;
 
-class TiktokAdAccountController extends Controller
+class GoogleAdAccountController extends Controller
 {
     function __construct()
     {
@@ -34,16 +34,16 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountList()
     {   
-        $adAccountData = TiktokAdAccount::orderBy('id','desc')->get();
+        $adAccountData = GoogleAdAccount::orderBy('id','desc')->get();
         $userData = User::orderBy('id','desc')->get();
-        return view('admin.tiktokAdAccount.adAccountList',compact('adAccountData','userData'));
+        return view('admin.googleAdAccount.adAccountList',compact('adAccountData','userData'));
     }
 
     public function adAccountMultipleReject(Request $request)
     {   
         if($request->adAccountIds != ''){
             foreach ($request->adAccountIds as $id) {
-                $adAccount = TiktokAdAccount::where('id',$id)->first();
+                $adAccount = GoogleAdAccount::where('id',$id)->first();
                 $adAccount->status = 'Reject';
                 $adAccount->save();
             }
@@ -53,26 +53,26 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountDailySpending()
     {   
-        $adAccountData = TiktokAdAccount::orderBy('id','desc')->get();
-        return view('admin.tiktokAdAccount.spending',compact('adAccountData'));
+        $adAccountData = GoogleAdAccount::orderBy('id','desc')->get();
+        return view('admin.googleAdAccount.spending',compact('adAccountData'));
     }
 
     public function adAccountCarD4Digit()
     {   
-        $adAccountData = TiktokAdAccount::orderBy('id','desc')->get();
-        return view('admin.tiktokAdAccount.card4Digit',compact('adAccountData'));
+        $adAccountData = GoogleAdAccount::orderBy('id','desc')->get();
+        return view('admin.googleAdAccount.card4Digit',compact('adAccountData'));
     }
 
     public function adAccountSocial()
     {   
-        $adAccountData = TiktokAdAccount::orderBy('id','desc')->get();
-        return view('admin.tiktokAdAccount.social',compact('adAccountData'));
+        $adAccountData = GoogleAdAccount::orderBy('id','desc')->get();
+        return view('admin.googleAdAccount.social',compact('adAccountData'));
     }
 
     public function adAccountBusinessManager()
     {   
-        $adAccountData = TiktokAdAccount::orderBy('id','desc')->get();
-        return view('admin.tiktokAdAccount.businessManager',compact('adAccountData'));
+        $adAccountData = GoogleAdAccount::orderBy('id','desc')->get();
+        return view('admin.googleAdAccount.businessManager',compact('adAccountData'));
     }
 
     
@@ -80,28 +80,28 @@ class TiktokAdAccountController extends Controller
     public function adAccountStatusFilter($data)
     {
         if ($data == 'Created') {
-            $adAccountData = TiktokAdAccount::orderBy('id','desc')->where('status','Created')->get();
+            $adAccountData = GoogleAdAccount::orderBy('id','desc')->where('status','Created')->get();
         }elseif($data == 'Pending'){
-            $adAccountData = TiktokAdAccount::orderBy('id','desc')->where('status','Pending')->get();
+            $adAccountData = GoogleAdAccount::orderBy('id','desc')->where('status','Pending')->get();
         }elseif($data == 'Reject'){
-            $adAccountData = TiktokAdAccount::orderBy('id','desc')->where('status','Reject')->get();
+            $adAccountData = GoogleAdAccount::orderBy('id','desc')->where('status','Reject')->get();
         }
 
         $userData = User::orderBy('id','desc')->get();
-        $setting = TiktokAdAccountSetting::first();
-        return view('admin.tiktokAdAccount.adAccountList',compact('adAccountData','userData','setting'));
+        $setting = GoogleAdAccountSetting::first();
+        return view('admin.googleAdAccount.adAccountList',compact('adAccountData','userData','setting'));
     }
 
     public function adAccountSettings()
     {
-        $setting = TiktokAdAccountSetting::first();
-        return view('admin.tiktokAdAccount.adAccountSetting',compact('setting'));
+        $setting = GoogleAdAccountSetting::first();
+        return view('admin.googleAdAccount.adAccountSetting',compact('setting'));
     }
 
     public function adAccountSettingsSubmit(Request $request)
     {   
 
-        $adAccountSetting = TiktokAdAccountSetting::first();
+        $adAccountSetting = GoogleAdAccountSetting::first();
         $adAccountSetting->user = $request->user;
         $adAccountSetting->account_name = $request->account_name;
         $adAccountSetting->current_balance = $request->current_balance;
@@ -125,29 +125,29 @@ class TiktokAdAccountController extends Controller
         $dt = new DateTime('now', new DateTimezone('Asia/Dhaka'));
         $current_time = $dt->format('Y-m-d g:i a');
 
-        $adAccount = TiktokAdAccount::where('id',$id)->first();
+        $adAccount = GoogleAdAccount::where('id',$id)->first();
         $adAccount->status = 'Created';
         $adAccount->confirmed_date = $current_time;
         $adAccount->save();
 
-        return redirect()->route('tiktok-ad-account-list')->with('message','Successfully Ad Account Created');
+        return redirect()->route('google-ad-account-list')->with('message','Successfully Ad Account Created');
     }
 
     public function adAccountStatusReject(Request $request)
     {   
-        $data = TiktokAdAccount::where('id',$request->ad_account_id)->first();
+        $data = GoogleAdAccount::where('id',$request->ad_account_id)->first();
         $data->status = 'Reject';
         $data->rejected_text = $request->rejected_text;
         $data->save();
 
-        return redirect()->route('tiktok-ad-account-list')->with('message','Successfully Balance Reject');
+        return redirect()->route('google-ad-account-list')->with('message','Successfully Balance Reject');
     }
 
     public function editAdAccount($id)
     {
-        $adAccount = TiktokAdAccount::where('id',$id)->first();
+        $adAccount = GoogleAdAccount::where('id',$id)->first();
         $userData = User::orderBy('id','desc')->get();
-        return view('admin.tiktokAdAccount.editAdAccount',compact('adAccount','userData'));
+        return view('admin.googleAdAccount.editAdAccount',compact('adAccount','userData'));
     }
 
     public function updateAdAccount(Request $request ,$id)
@@ -159,17 +159,17 @@ class TiktokAdAccountController extends Controller
             $user = User::where('id',$request->user_id)->first();
 
 
-            $adAccount = TiktokAdAccount::where('id',$id)->first();        
+            $adAccount = GoogleAdAccount::where('id',$id)->first();        
             if($adAccount->update($data)){
-                return redirect(route('tiktok-ad-account-list'))->with('message','Successfully Ad Account Updated');
+                return redirect(route('google-ad-account-list'))->with('message','Successfully Ad Account Updated');
             }else{
                 return redirect()->back()->with('error','Error !! Update Failed');
             }
 
         }else{
-            $adAccount = TiktokAdAccount::where('id',$id)->first();        
+            $adAccount = GoogleAdAccount::where('id',$id)->first();        
             if($adAccount->update($data)){
-                return redirect(route('tiktok-ad-account-list'))->with('message','Successfully Ad Account Updated');
+                return redirect(route('google-ad-account-list'))->with('message','Successfully Ad Account Updated');
             }else{
                 return redirect()->back()->with('error','Error !! Update Failed');
             }
@@ -180,10 +180,10 @@ class TiktokAdAccountController extends Controller
     public function updateAccountNameUser(Request $request ,$id)
     {
         $data = $request->all();
-        $adAccount = TiktokAdAccount::where('id',$id)->first();  
+        $adAccount = GoogleAdAccount::where('id',$id)->first();  
 
         if($adAccount->update($data)){
-                return redirect(route('tiktok-ad-account-list'))->with('message','Successfully Ad Account Updated');
+                return redirect(route('google-ad-account-list'))->with('message','Successfully Ad Account Updated');
             }else{
                 return redirect()->back()->with('error','Error !! Update Failed');
         }
@@ -194,7 +194,7 @@ class TiktokAdAccountController extends Controller
     {
         if ($request->ajax()) {
 
-            $data = TiktokAdAccount::where('id',$request->pk)->first();
+            $data = GoogleAdAccount::where('id',$request->pk)->first();
             $data->ad_name = $request->value;
             $data->save();
 
@@ -207,7 +207,7 @@ class TiktokAdAccountController extends Controller
     {
         if ($request->ajax()) {
 
-            $data = TiktokAdAccount::where('id',$request->pk)->first();
+            $data = GoogleAdAccount::where('id',$request->pk)->first();
             $data->balance = $request->value;
             $data->save();
 
@@ -221,7 +221,7 @@ class TiktokAdAccountController extends Controller
     {
         if ($request->ajax()) {
 
-            $data = TiktokAdAccount::where('id',$request->pk)->first();
+            $data = GoogleAdAccount::where('id',$request->pk)->first();
             $data->business_manager_id = $request->value;
             $data->save();
 
@@ -238,7 +238,7 @@ class TiktokAdAccountController extends Controller
     public function createAdAccount()
     {  
         $userData = User::orderBy('id','desc')->get();
-        return view('admin.tiktokAdAccount.createManualAdAccount',compact('userData'));
+        return view('admin.googleAdAccount.createManualAdAccount',compact('userData'));
     }
 
     public function manualCreateAdAccount(Request $request)
@@ -259,7 +259,7 @@ class TiktokAdAccountController extends Controller
         $data['status'] = "Created";
         $data['confirmed_date'] = $current_time;
 
-        if(TiktokAdAccount::create($data)){
+        if(GoogleAdAccount::create($data)){
 
             $user = User::where('id',$request->user_id)->first();
 
@@ -272,30 +272,30 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountCreateRequest(){
 
-        $adAccountRequestData = TiktokAdAccountRequest::orderBy('id','desc')->get();
-        return view('admin.tiktokAdAccount.adAccountRequest',compact('adAccountRequestData'));
+        $adAccountRequestData = GoogleAdAccountRequest::orderBy('id','desc')->get();
+        return view('admin.googleAdAccount.adAccountRequest',compact('adAccountRequestData'));
     }
 
     public function adAccountRequestStatusFilter($data){
 
         if ($data == 'Created') {
-            $adAccountRequestData = TiktokAdAccountRequest::orderBy('id','desc')->where('status','Created')->get();
+            $adAccountRequestData = GoogleAdAccountRequest::orderBy('id','desc')->where('status','Created')->get();
         }elseif($data == 'Pending'){
-            $adAccountRequestData = TiktokAdAccountRequest::orderBy('id','desc')->where('status','Pending')->get();
+            $adAccountRequestData = GoogleAdAccountRequest::orderBy('id','desc')->where('status','Pending')->get();
         }elseif($data == 'Reject'){
-            $adAccountRequestData = TiktokAdAccountRequest::orderBy('id','desc')->where('status','Reject')->get();
+            $adAccountRequestData = GoogleAdAccountRequest::orderBy('id','desc')->where('status','Reject')->get();
         }
 
-        return view('admin.tiktokAdAccount.adAccountRequest',compact('adAccountRequestData'));
+        return view('admin.googleAdAccount.adAccountRequest',compact('adAccountRequestData'));
     }
 
     
 
     public function adAccountCreate($id)
     {   
-        $adAccount = TiktokAdAccountRequest::where('id',$id)->first();
+        $adAccount = GoogleAdAccountRequest::where('id',$id)->first();
         $userData = User::orderBy('id','desc')->get();
-        return view('admin.tiktokAdAccount.createAdAccount',compact('adAccount','userData'));
+        return view('admin.googleAdAccount.createAdAccount',compact('adAccount','userData'));
     }
 
     public function adAccountCreateSubmit(Request $request,$id)
@@ -316,8 +316,8 @@ class TiktokAdAccountController extends Controller
         $data['status'] = "Created";
         $data['confirmed_date'] = $current_time;
 
-        if(TiktokAdAccount::create($data)){
-            $adAccountRequest = TiktokAdAccountRequest::where('id',$id)->first();
+        if(GoogleAdAccount::create($data)){
+            $adAccountRequest = GoogleAdAccountRequest::where('id',$id)->first();
             $adAccountRequest->status = 'Created';
             $adAccountRequest->confirmed_date = $current_time;
             $adAccountRequest->save();
@@ -334,12 +334,12 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountRequestReject(Request $request)
     {
-        $data = TiktokAdAccountRequest::where('id',$request->ad_account_request_id)->first();
+        $data = GoogleAdAccountRequest::where('id',$request->ad_account_request_id)->first();
         $data->status = 'Reject';
         $data->rejected_text = $request->rejected_text;
         $data->save();
 
-        return redirect()->route('tiktok-ad-account-create-request')->with('message','Successfully Ad Account Request Rejected');
+        return redirect()->route('google-ad-account-create-request')->with('message','Successfully Ad Account Request Rejected');
     }
 
 
@@ -349,21 +349,21 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountTopUpRequest()
     {   
-        $adAccountTopUpData = TiktokAdAccountTopUp::orderBy('id','desc')->get();
-        return view('admin.tiktokAdAccount.adAccountTopUpRequest',compact('adAccountTopUpData'));
+        $adAccountTopUpData = GoogleAdAccountTopUp::orderBy('id','desc')->get();
+        return view('admin.googleAdAccount.adAccountTopUpRequest',compact('adAccountTopUpData'));
     }
 
     public function adAccountTopUpStatusFilter($data)
     {   
         if ($data == 'Complete') {
-            $adAccountTopUpData = TiktokAdAccountTopUp::orderBy('id','desc')->where('status','Complete')->get();
+            $adAccountTopUpData = GoogleAdAccountTopUp::orderBy('id','desc')->where('status','Complete')->get();
         }elseif($data == 'Pending'){
-            $adAccountTopUpData = TiktokAdAccountTopUp::orderBy('id','desc')->where('status','Pending')->get();
+            $adAccountTopUpData = GoogleAdAccountTopUp::orderBy('id','desc')->where('status','Pending')->get();
         }elseif($data == 'Reject'){
-            $adAccountTopUpData = TiktokAdAccountTopUp::orderBy('id','desc')->where('status','Reject')->get();
+            $adAccountTopUpData = GoogleAdAccountTopUp::orderBy('id','desc')->where('status','Reject')->get();
         }
 
-        return view('admin.tiktokAdAccount.adAccountTopUpRequest',compact('adAccountTopUpData'));
+        return view('admin.googleAdAccount.adAccountTopUpRequest',compact('adAccountTopUpData'));
     }
 
 
@@ -372,10 +372,10 @@ class TiktokAdAccountController extends Controller
         $dt = new DateTime('now', new DateTimezone('Asia/Dhaka'));
         $current_time = $dt->format('Y-m-d g:i a');
 
-        $adAccountTopUp = TiktokAdAccountTopUp::where('id',$id)->first();
+        $adAccountTopUp = GoogleAdAccountTopUp::where('id',$id)->first();
 
         if ($adAccountTopUp->status == 'Complete') {
-            return redirect()->route('tiktok-ad-account-top-up-request');
+            return redirect()->route('google-ad-account-top-up-request');
         }else{
             $user = User::where('id',$adAccountTopUp->user_id)->first();
             $user->balance -= $adAccountTopUp->amount;
@@ -385,7 +385,7 @@ class TiktokAdAccountController extends Controller
             $adAccountTopUp->confirmed_date = $current_time;
             $adAccountTopUp->save();
 
-            $adAccountData = TiktokAdAccount::where('id',$adAccountTopUp->ad_account_id)->first();
+            $adAccountData = GoogleAdAccount::where('id',$adAccountTopUp->ad_account_id)->first();
 
             return redirect()->back()->with('message','Successfully Ad Account TopUp Complete');
         }
@@ -396,7 +396,7 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountTopUpRequestReject($id)
     {
-        $data = TiktokAdAccountTopUp::where('id',$id)->first();
+        $data = GoogleAdAccountTopUp::where('id',$id)->first();
 
         if ($data->status == 'Complete') {
             $user = User::where('id',$data->user_id)->first();
@@ -416,15 +416,15 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountTopUpRequestDelete($id)
     {
-        $delete = TiktokAdAccountTopUp::where('id',$id)->delete();
-        return redirect()->route('tiktok-ad-account-top-up-request')->with('message','Successfully Ad Account TopUp Request Deleted');
+        $delete = GoogleAdAccountTopUp::where('id',$id)->delete();
+        return redirect()->route('google-ad-account-top-up-request')->with('message','Successfully Ad Account TopUp Request Deleted');
     }
 
     public function adAccountTopUpRequestEdit($id)
     {
-        $adAccountTopUpData = TiktokAdAccountTopUp::where('id',$id)->first();
-        $adAccount = TiktokAdAccount::where('user_id',$adAccountTopUpData->user_id)->where('status','Complete')->get();
-        return view('admin.tiktokAdAccount.adAccountTopUpRequestEdit',compact('adAccountTopUpData','adAccount'));
+        $adAccountTopUpData = GoogleAdAccountTopUp::where('id',$id)->first();
+        $adAccount = GoogleAdAccount::where('user_id',$adAccountTopUpData->user_id)->where('status','Complete')->get();
+        return view('admin.googleAdAccount.adAccountTopUpRequestEdit',compact('adAccountTopUpData','adAccount'));
     }
 
     public function adAccountTopUpRequestUpdate(Request $request,$id)
@@ -433,12 +433,12 @@ class TiktokAdAccountController extends Controller
             'amount' => 'required',
         ]);
 
-        $adAccountTopUpData = TiktokAdAccountTopUp::where('id',$id)->first();
+        $adAccountTopUpData = GoogleAdAccountTopUp::where('id',$id)->first();
         $adAccountTopUpData->amount = $request->amount;
         $adAccountTopUpData->note = $request->note;
         $adAccountTopUpData->save();
 
-        return redirect()->route('tiktok-ad-account-top-up-request')->with('message','Successfully Ad Account TopUp Request Updated');
+        return redirect()->route('google-ad-account-top-up-request')->with('message','Successfully Ad Account TopUp Request Updated');
     }
 
 
@@ -446,8 +446,8 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountFoundTransferRequest()
     {   
-        $adAccountFoundTransferData = TiktokAdAccountFoundTransfer::orderBy('id','desc')->get();
-        return view('admin.tiktokAdAccount.adAccountFoundTransferRequest',compact('adAccountFoundTransferData'));
+        $adAccountFoundTransferData = GoogleAdAccountFoundTransfer::orderBy('id','desc')->get();
+        return view('admin.googleAdAccount.adAccountFoundTransferRequest',compact('adAccountFoundTransferData'));
     }
     
     public function adAccountFoundTransferRequestComplete($id)
@@ -455,7 +455,7 @@ class TiktokAdAccountController extends Controller
         $dt = new DateTime('now', new DateTimezone('Asia/Dhaka'));
         $current_time = $dt->format('Y-m-d g:i a');
 
-        $adAccountFoundTransfer = TiktokAdAccountFoundTransfer::where('id',$id)->first();
+        $adAccountFoundTransfer = GoogleAdAccountFoundTransfer::where('id',$id)->first();
 
         if ($adAccountFoundTransfer->status == 'Complete') {
            return redirect()->back();
@@ -471,18 +471,18 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountFoundTransferRequestReject(Request $request,$id)
     {
-        $data = TiktokAdAccountFoundTransfer::where('id',$request->ad_account_found_transfer_id)->first();
+        $data = GoogleAdAccountFoundTransfer::where('id',$request->ad_account_found_transfer_id)->first();
         $data->status = 'Reject';
         $data->rejected_text = $request->rejected_text;
         $data->save();
 
-        return redirect()->route('tiktok-ad-account-found-transfer-request')->with('message','Successfully Ad Account Found Request Rejected');
+        return redirect()->route('google-ad-account-found-transfer-request')->with('message','Successfully Ad Account Found Request Rejected');
     }
 
     public function adAccountFoundTransferRequestDelete($id)
     {
-        $delete = TiktokAdAccountFoundTransfer::where('id',$id)->delete();
-        return redirect()->route('tiktok-ad-account-found-transfer-request')->with('message','Successfully Ad Account Found Transfer Request Deleted');
+        $delete = GoogleAdAccountFoundTransfer::where('id',$id)->delete();
+        return redirect()->route('google-ad-account-found-transfer-request')->with('message','Successfully Ad Account Found Transfer Request Deleted');
     }
 
 
@@ -490,21 +490,21 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountTransferRequest()
     {   
-        $adAccountTransferData = TiktokAdAccountTransfer::orderBy('id','desc')->get();
-        return view('admin.tiktokAdAccount.adAccountTransferRequest',compact('adAccountTransferData'));
+        $adAccountTransferData = GoogleAdAccountTransfer::orderBy('id','desc')->get();
+        return view('admin.googleAdAccount.adAccountTransferRequest',compact('adAccountTransferData'));
     }
 
     public function adAccountTransferStatusFilter($data)
     {   
         if ($data == 'Complete') {
-            $adAccountTransferData = TiktokAdAccountTransfer::orderBy('id','desc')->where('status','Complete')->get();
+            $adAccountTransferData = GoogleAdAccountTransfer::orderBy('id','desc')->where('status','Complete')->get();
         }elseif($data == 'Pending'){
-            $adAccountTransferData = TiktokAdAccountTransfer::orderBy('id','desc')->where('status','Pending')->get();
+            $adAccountTransferData = GoogleAdAccountTransfer::orderBy('id','desc')->where('status','Pending')->get();
         }elseif($data == 'Reject'){
-            $adAccountTransferData = TiktokAdAccountTransfer::orderBy('id','desc')->where('status','Reject')->get();
+            $adAccountTransferData = GoogleAdAccountTransfer::orderBy('id','desc')->where('status','Reject')->get();
         }
 
-        return view('admin.tiktokAdAccount.adAccountTransferRequest',compact('adAccountTransferData'));
+        return view('admin.googleAdAccount.adAccountTransferRequest',compact('adAccountTransferData'));
     }
 
 
@@ -513,20 +513,20 @@ class TiktokAdAccountController extends Controller
         $dt = new DateTime('now', new DateTimezone('Asia/Dhaka'));
         $current_time = $dt->format('Y-m-d g:i a');
 
-        $adAccountTransfer = TiktokAdAccountTransfer::where('id',$id)->first();
+        $adAccountTransfer = GoogleAdAccountTransfer::where('id',$id)->first();
         $adAccountTransfer->status = 'Complete';
         $adAccountTransfer->confirmed_date = $current_time;
         $adAccountTransfer->save();
 
         $user = User::where('id',$adAccountTransfer->user_id)->first();
-        $adAccountData = TiktokAdAccount::where('id',$adAccountTransfer->ad_account_id)->first();
+        $adAccountData = GoogleAdAccount::where('id',$adAccountTransfer->ad_account_id)->first();
 
         return redirect()->back()->with('message','Successfully Ad Account Transfer Complete');
     }
 
     public function adAccountTransferRequestReject(Request $request,$id)
     {
-        $data = TiktokAdAccountTransfer::where('id',$request->ad_account_transfer_id)->first();
+        $data = GoogleAdAccountTransfer::where('id',$request->ad_account_transfer_id)->first();
         $data->status = 'Reject';
         $data->rejected_text = $request->rejected_text;
         $data->save();
@@ -536,8 +536,8 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountTransferRequestDelete($id)
     {
-        $delete = TiktokAdAccountTransfer::where('id',$id)->delete();
-        return redirect()->route('tiktok-ad-account-transfer-request')->with('message','Successfully Ad Account Transfer Request Deleted');
+        $delete = GoogleAdAccountTransfer::where('id',$id)->delete();
+        return redirect()->route('google-ad-account-transfer-request')->with('message','Successfully Ad Account Transfer Request Deleted');
     }
 
 
@@ -546,27 +546,27 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountAppealRequest()
     {   
-        $adAccountAppealData = TiktokAdAccountAppeal::orderBy('id','desc')->get();
-        return view('admin.tiktokAdAccount.adAccountAppealRequest',compact('adAccountAppealData'));
+        $adAccountAppealData = GoogleAdAccountAppeal::orderBy('id','desc')->get();
+        return view('admin.googleAdAccount.adAccountAppealRequest',compact('adAccountAppealData'));
     }
 
     public function adAccountAppealStatusFilter($data)
     {   
         if ($data == 'Complete') {
-            $adAccountAppealData = TiktokAdAccountAppeal::orderBy('id','desc')->where('status','Complete')->get();
+            $adAccountAppealData = GoogleAdAccountAppeal::orderBy('id','desc')->where('status','Complete')->get();
         }elseif($data == 'Pending'){
-            $adAccountAppealData = TiktokAdAccountAppeal::orderBy('id','desc')->where('status','Pending')->get();
+            $adAccountAppealData = GoogleAdAccountAppeal::orderBy('id','desc')->where('status','Pending')->get();
         }elseif($data == 'Reject'){
-            $adAccountAppealData = TiktokAdAccountAppeal::orderBy('id','desc')->where('status','Reject')->get();
+            $adAccountAppealData = GoogleAdAccountAppeal::orderBy('id','desc')->where('status','Reject')->get();
         }
 
-        return view('admin.tiktokAdAccount.adAccountAppealRequest',compact('adAccountAppealData'));
+        return view('admin.googleAdAccount.adAccountAppealRequest',compact('adAccountAppealData'));
     }
 
 
     public function adAccountAppealRequestDelete($id)
     {
-        $delete = TiktokAdAccountAppeal::where('id',$id)->delete();
+        $delete = GoogleAdAccountAppeal::where('id',$id)->delete();
         return redirect()->route('tiktok-ad-account-appeal-request')->with('message','Successfully Ad Account Appeal Request Deleted');
     }
 
@@ -575,25 +575,25 @@ class TiktokAdAccountController extends Controller
         $dt = new DateTime('now', new DateTimezone('Asia/Dhaka'));
         $current_time = $dt->format('Y-m-d g:i a');
 
-        $adAccountAppeal = TiktokAdAccountAppeal::where('id',$id)->first();
+        $adAccountAppeal = GoogleAdAccountAppeal::where('id',$id)->first();
         $adAccountAppeal->status = 'Complete';
         $adAccountAppeal->confirmed_date = $current_time;
         $adAccountAppeal->save();
 
         $user = User::where('id',$adAccountAppeal->user_id)->first();
-        $adAccountData = TiktokAdAccount::where('id',$adAccountAppeal->ad_account_id)->first();
+        $adAccountData = GoogleAdAccount::where('id',$adAccountAppeal->ad_account_id)->first();
 
         return redirect()->back()->with('message','Successfully Ad Account Appeal Complete');
     }
 
     public function adAccountAppealRequestReject(Request $request,$id)
     {
-        $data = TiktokAdAccountAppeal::where('id',$request->ad_account_appeal_id)->first();
+        $data = GoogleAdAccountAppeal::where('id',$request->ad_account_appeal_id)->first();
         $data->status = 'Reject';
         $data->rejected_text = $request->rejected_text;
         $data->save();
 
-        return redirect()->route('tiktok-ad-account-appeal-request')->with('message','Successfully Ad Account Appeal Request Rejected');
+        return redirect()->route('google-ad-account-appeal-request')->with('message','Successfully Ad Account Appeal Request Rejected');
     }
 
 
@@ -603,28 +603,28 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountReplaceRequest()
     {   
-        $adAccountReplaceData = TiktokAdAccountReplace::orderBy('id','desc')->get();
-        return view('admin.tiktokAdAccount.adAccountReplaceRequest',compact('adAccountReplaceData'));
+        $adAccountReplaceData = GoogleAdAccountReplace::orderBy('id','desc')->get();
+        return view('admin.googleAdAccount.adAccountReplaceRequest',compact('adAccountReplaceData'));
     }
 
     public function adAccountReplaceStatusFilter($data)
     {   
         if ($data == 'Complete') {
-            $adAccountReplaceData = TiktokAdAccountReplace::orderBy('id','desc')->where('status','Complete')->get();
+            $adAccountReplaceData = GoogleAdAccountReplace::orderBy('id','desc')->where('status','Complete')->get();
         }elseif($data == 'Pending'){
-            $adAccountReplaceData = TiktokAdAccountReplace::orderBy('id','desc')->where('status','Pending')->get();
+            $adAccountReplaceData = GoogleAdAccountReplace::orderBy('id','desc')->where('status','Pending')->get();
         }elseif($data == 'Reject'){
-            $adAccountReplaceData = TiktokAdAccountReplace::orderBy('id','desc')->where('status','Reject')->get();
+            $adAccountReplaceData = GoogleAdAccountReplace::orderBy('id','desc')->where('status','Reject')->get();
         }
 
-        return view('admin.tiktokAdAccount.adAccountReplaceRequest',compact('adAccountReplaceData'));
+        return view('admin.googleAdAccount.adAccountReplaceRequest',compact('adAccountReplaceData'));
     }
 
     
     public function adAccountReplaceRequestDelete($id)
     {
-        $delete = TiktokAdAccountReplace::where('id',$id)->delete();
-        return redirect()->route('tiktok-ad-account-replace-request')->with('message','Successfully Ad Account Replace Request Deleted');
+        $delete = GoogleAdAccountReplace::where('id',$id)->delete();
+        return redirect()->route('google-ad-account-replace-request')->with('message','Successfully Ad Account Replace Request Deleted');
     }
 
     public function adAccountReplaceRequestComplete($id)
@@ -632,25 +632,25 @@ class TiktokAdAccountController extends Controller
         $dt = new DateTime('now', new DateTimezone('Asia/Dhaka'));
         $current_time = $dt->format('Y-m-d g:i a');
 
-        $adAccountReplace = TiktokAdAccountReplace::where('id',$id)->first();
+        $adAccountReplace = GoogleAdAccountReplace::where('id',$id)->first();
         $adAccountReplace->status = 'Complete';
         $adAccountReplace->confirmed_date = $current_time;
         $adAccountReplace->save();
 
         $user = User::where('id',$adAccountReplace->user_id)->first();
-        $adAccountData = TiktokAdAccount::where('id',$adAccountReplace->ad_account_id)->first();
+        $adAccountData = GoogleAdAccount::where('id',$adAccountReplace->ad_account_id)->first();
 
         return redirect()->back()->with('message','Successfully Ad Account Replace Complete');
     }
 
     public function adAccountReplaceRequestReject(Request $request,$id)
     {
-        $data = TiktokAdAccountReplace::where('id',$request->ad_account_replace_id)->first();
+        $data = GoogleAdAccountReplace::where('id',$request->ad_account_replace_id)->first();
         $data->status = 'Reject';
         $data->rejected_text = $request->rejected_text;
         $data->save();
 
-        return redirect()->route('tiktok-ad-account-replace-request')->with('message','Successfully Ad Account Replace Request Rejected');
+        return redirect()->route('google-ad-account-replace-request')->with('message','Successfully Ad Account Replace Request Rejected');
     }
 
 
@@ -659,28 +659,28 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountRenameRequest()
     {   
-        $adAccountRenameData = TiktokAdAccountRenameRequest::orderBy('id','desc')->get();
-        return view('admin.tiktokAdAccount.adAccountRenameRequest',compact('adAccountRenameData'));
+        $adAccountRenameData = GoogleAdAccountRenameRequest::orderBy('id','desc')->get();
+        return view('admin.googleAdAccount.adAccountRenameRequest',compact('adAccountRenameData'));
     }
 
     public function adAccountRenameStatusFilter($data)
     {   
         if ($data == 'Complete') {
-            $adAccountRenameData = TiktokAdAccountRenameRequest::orderBy('id','desc')->where('status','Complete')->get();
+            $adAccountRenameData = GoogleAdAccountRenameRequest::orderBy('id','desc')->where('status','Complete')->get();
         }elseif($data == 'Pending'){
-            $adAccountRenameData = TiktokAdAccountRenameRequest::orderBy('id','desc')->where('status','Pending')->get();
+            $adAccountRenameData = GoogleAdAccountRenameRequest::orderBy('id','desc')->where('status','Pending')->get();
         }elseif($data == 'Reject'){
-            $adAccountRenameData = TiktokAdAccountRenameRequest::orderBy('id','desc')->where('status','Reject')->get();
+            $adAccountRenameData = GoogleAdAccountRenameRequest::orderBy('id','desc')->where('status','Reject')->get();
         }
 
-        return view('admin.tiktokAdAccount.adAccountRenameRequest',compact('adAccountRenameData'));
+        return view('admin.googleAdAccount.adAccountRenameRequest',compact('adAccountRenameData'));
     }
     
     
     public function adAccountRenameRequestDelete($id)
     {
-        $delete = TiktokAdAccountRenameRequest::where('id',$id)->delete();
-        return redirect()->route('tiktok-ad-account-rename-request')->with('message','Successfully Ad Account Rename Request Deleted');
+        $delete = GoogleAdAccountRenameRequest::where('id',$id)->delete();
+        return redirect()->route('google-ad-account-rename-request')->with('message','Successfully Ad Account Rename Request Deleted');
     }
 
     public function adAccountRenameRequestComplete(Request $request,$id)
@@ -688,14 +688,14 @@ class TiktokAdAccountController extends Controller
         $dt = new DateTime('now', new DateTimezone('Asia/Dhaka'));
         $current_time = $dt->format('Y-m-d g:i a');
 
-        $adAccountRenameRequest = TiktokAdAccountRenameRequest::where('id',$id)->first();
+        $adAccountRenameRequest = GoogleAdAccountRenameRequest::where('id',$id)->first();
         $adAccountRenameRequest->status = 'Complete';
         $adAccountRenameRequest->confirmed_date = $current_time;
         $adAccountRenameRequest->save();
 
         $user = User::where('id',$adAccountRenameRequest->user_id)->first();
         
-        $adAccountData = TiktokAdAccount::where('id',$adAccountRenameRequest->ad_account_id)->first();
+        $adAccountData = GoogleAdAccount::where('id',$adAccountRenameRequest->ad_account_id)->first();
         $adAccountData->ad_name = $request->ad_name;
         $adAccountData->save();
 
@@ -704,12 +704,12 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountRenameRequestReject(Request $request,$id)
     {
-        $data = TiktokAdAccountRenameRequest::where('id',$request->ad_account_rename_id)->first();
+        $data = GoogleAdAccountRenameRequest::where('id',$request->ad_account_rename_id)->first();
         $data->status = 'Reject';
         $data->rejected_text = $request->rejected_text;
         $data->save();
 
-        return redirect()->route('tiktok-ad-account-rename-request')->with('message','Successfully Ad Account Rename Request Rejected');
+        return redirect()->route('google-ad-account-rename-request')->with('message','Successfully Ad Account Rename Request Rejected');
     }
 
 
@@ -717,13 +717,13 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountBMLinkRequestView()
     {
-        $adAccountBMLinkData = TiktokAdAccountBMLinkRequest::orderBy('id','desc')->get();
+        $adAccountBMLinkData = GoogleAdAccountBMLinkRequest::orderBy('id','desc')->get();
         return view('admin.tiktokAdAccount.adAccountBMLinkRequest',compact('adAccountBMLinkData'));
     }
 
     public function adAccountBmLinkReply(Request $request,$id)
     {
-        $adAccountBMLink = TiktokAdAccountBMLinkRequest::where('id',$id)->first();
+        $adAccountBMLink = GoogleAdAccountBMLinkRequest::where('id',$id)->first();
         $adAccountBMLink->status = 'Complete';
         $adAccountBMLink->reply = $request->reply;
         $adAccountBMLink->save();
@@ -733,7 +733,7 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountBmLinkRequestDelete($id)
     {
-         $delete = TiktokAdAccountBMLinkRequest::where('id',$id)->delete();
+         $delete = GoogleAdAccountBMLinkRequest::where('id',$id)->delete();
          return redirect()->back()->with('message','Successfully Ad Account BM Link Request Deleted');
     }
 
@@ -741,8 +741,8 @@ class TiktokAdAccountController extends Controller
     /*--------- Ad Account Refund Request Part -----------*/
     public function adAccountRefundRequestView()
     {
-        $adAccountRefundData = TiktokAdAccountRefundRequest::orderBy('id','desc')->get();
-        return view('admin.tiktokAdAccount.adAccountRefundRequest',compact('adAccountRefundData'));
+        $adAccountRefundData = GoogleAdAccountRefundRequest::orderBy('id','desc')->get();
+        return view('admin.googleAdAccount.adAccountRefundRequest',compact('adAccountRefundData'));
     }
 
     public function adAccountRefundRequestComplete($id)
@@ -750,7 +750,7 @@ class TiktokAdAccountController extends Controller
         $dt = new DateTime('now', new DateTimezone('Asia/Dhaka'));
         $current_time = $dt->format('Y-m-d g:i a');
 
-        $adAccountRefund = TiktokAdAccountRefundRequest::where('id',$id)->first();
+        $adAccountRefund = GoogleAdAccountRefundRequest::where('id',$id)->first();
 
         if ($adAccountRefund->status == 'Complete') {
            return redirect()->back();
@@ -771,7 +771,7 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountRefundRequestReject(Request $request,$id)
     {
-        $data = TiktokAdAccountRefundRequest::where('id',$id)->first();
+        $data = GoogleAdAccountRefundRequest::where('id',$id)->first();
         if ($data->status == 'Complete') {
             $user = User::where('id',$data->user_id)->first();
             $user->balance -= $data->amount;
@@ -796,7 +796,7 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountRefundRequestDelete($id)
     {
-        $delete = TiktokAdAccountRefundRequest::where('id',$id)->delete();
+        $delete = GoogleAdAccountRefundRequest::where('id',$id)->delete();
          return redirect()->back()->with('message','Successfully Ad Account Refund Request Deleted');
     }
     
@@ -804,14 +804,14 @@ class TiktokAdAccountController extends Controller
     public function adAccountRefundStatusFilter($data)
     {   
         if ($data == 'Complete') {
-            $adAccountRefundData = TiktokAdAccountRefundRequest::orderBy('id','desc')->where('status','Complete')->get();
+            $adAccountRefundData = GoogleAdAccountRefundRequest::orderBy('id','desc')->where('status','Complete')->get();
         }elseif($data == 'Pending'){
-            $adAccountRefundData = TiktokAdAccountRefundRequest::orderBy('id','desc')->where('status','Pending')->get();
+            $adAccountRefundData = GoogleAdAccountRefundRequest::orderBy('id','desc')->where('status','Pending')->get();
         }elseif($data == 'Reject'){
-            $adAccountRefundData = TiktokAdAccountRefundRequest::orderBy('id','desc')->where('status','Reject')->get();
+            $adAccountRefundData = GoogleAdAccountRefundRequest::orderBy('id','desc')->where('status','Reject')->get();
         }
 
-        return view('admin.tiktokAdAccount.adAccountRefundRequest',compact('adAccountRefundData'));
+        return view('admin.googleAdAccount.adAccountRefundRequest',compact('adAccountRefundData'));
     }
 
 
@@ -820,28 +820,28 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountTryHoldRequest()
     {   
-        $adAccountTryHoldData = TiktokTryHoldRequest::orderBy('id','desc')->get();
-        return view('admin.tiktokAdAccount.adAccountTryHold',compact('adAccountTryHoldData'));
+        $adAccountTryHoldData = GoogleTryHoldRequest::orderBy('id','desc')->get();
+        return view('admin.googleAdAccount.adAccountTryHold',compact('adAccountTryHoldData'));
     }
 
     public function adAccountTryHoldStatusFilter($data)
     {   
         if ($data == 'Complete') {
-            $adAccountTryHoldData = TiktokTryHoldRequest::orderBy('id','desc')->where('status','Complete')->get();
+            $adAccountTryHoldData = GoogleTryHoldRequest::orderBy('id','desc')->where('status','Complete')->get();
         }elseif($data == 'Pending'){
-            $adAccountTryHoldData = TiktokTryHoldRequest::orderBy('id','desc')->where('status','Pending')->get();
+            $adAccountTryHoldData = GoogleTryHoldRequest::orderBy('id','desc')->where('status','Pending')->get();
         }elseif($data == 'Reject'){
-            $adAccountTryHoldData = TiktokTryHoldRequest::orderBy('id','desc')->where('status','Reject')->get();
+            $adAccountTryHoldData = GoogleTryHoldRequest::orderBy('id','desc')->where('status','Reject')->get();
         }
 
-        return view('admin.tiktokAdAccount.adAccountTryHold',compact('adAccountTryHoldData'));
+        return view('admin.googleAdAccount.adAccountTryHold',compact('adAccountTryHoldData'));
     }
 
 
     public function adAccountTryHoldRequestDelete($id)
     {
-        $delete = TiktokTryHoldRequest::where('id',$id)->delete();
-        return redirect()->route('tiktok-ad-account-try-hold-request')->with('message','Successfully Ad Account Try Hold Request Deleted');
+        $delete = GoogleTryHoldRequest::where('id',$id)->delete();
+        return redirect()->route('google-ad-account-try-hold-request')->with('message','Successfully Ad Account Try Hold Request Deleted');
     }
 
     public function adAccountTryHoldRequestComplete($id)
@@ -849,25 +849,25 @@ class TiktokAdAccountController extends Controller
         $dt = new DateTime('now', new DateTimezone('Asia/Dhaka'));
         $current_time = $dt->format('Y-m-d g:i a');
 
-        $adAccountAppeal = TiktokTryHoldRequest::where('id',$id)->first();
+        $adAccountAppeal = GoogleTryHoldRequest::where('id',$id)->first();
         $adAccountAppeal->status = 'Complete';
         $adAccountAppeal->confirmed_date = $current_time;
         $adAccountAppeal->save();
 
         $user = User::where('id',$adAccountAppeal->user_id)->first();
-        $adAccountData = TiktokAdAccount::where('id',$adAccountAppeal->ad_account_id)->first();
+        $adAccountData = GoogleAdAccount::where('id',$adAccountAppeal->ad_account_id)->first();
 
         return redirect()->back()->with('message','Successfully Ad Account Try Hold Complete');
     }
 
     public function adAccountTryHoldRequestReject(Request $request,$id)
     {
-        $data = TiktokTryHoldRequest::where('id',$request->ad_account_appeal_id)->first();
+        $data = GoogleTryHoldRequest::where('id',$request->ad_account_appeal_id)->first();
         $data->status = 'Reject';
         $data->rejected_text = $request->rejected_text;
         $data->save();
 
-        return redirect()->route('tiktok-ad-account-try-hold-request')->with('message','Successfully Ad Account Try Hold Request Rejected');
+        return redirect()->route('google-ad-account-try-hold-request')->with('message','Successfully Ad Account Try Hold Request Rejected');
     }
 
 
@@ -875,28 +875,28 @@ class TiktokAdAccountController extends Controller
 
     public function adAccountBillFailedRequest()
     {   
-        $adAccountBillFailedData = TiktokBillFailedRequest::orderBy('id','desc')->get();
-        return view('admin.tiktokAdAccount.adAccountBillFailed',compact('adAccountBillFailedData'));
+        $adAccountBillFailedData = GoogleBillFailedRequest::orderBy('id','desc')->get();
+        return view('admin.googleAdAccount.adAccountBillFailed',compact('adAccountBillFailedData'));
     }
 
     public function adAccountBillFailedStatusFilter($data)
     {   
         if ($data == 'Complete') {
-            $adAccountBillFailedData = TiktokBillFailedRequest::orderBy('id','desc')->where('status','Complete')->get();
+            $adAccountBillFailedData = GoogleBillFailedRequest::orderBy('id','desc')->where('status','Complete')->get();
         }elseif($data == 'Pending'){
-            $adAccountBillFailedData = TiktokBillFailedRequest::orderBy('id','desc')->where('status','Pending')->get();
+            $adAccountBillFailedData = GoogleBillFailedRequest::orderBy('id','desc')->where('status','Pending')->get();
         }elseif($data == 'Reject'){
-            $adAccountBillFailedData = TiktokBillFailedRequest::orderBy('id','desc')->where('status','Reject')->get();
+            $adAccountBillFailedData = GoogleBillFailedRequest::orderBy('id','desc')->where('status','Reject')->get();
         }
 
-        return view('admin.tiktokAdAccount.adAccountBillFailed',compact('adAccountBillFailedData'));
+        return view('admin.googleAdAccount.adAccountBillFailed',compact('adAccountBillFailedData'));
     }
 
 
     public function adAccountBillFailedRequestDelete($id)
     {
-        $delete = TiktokBillFailedRequest::where('id',$id)->delete();
-        return redirect()->route('tiktok-ad-account-bill-failed-request')->with('message','Successfully Ad Account Bill Failed Request Deleted');
+        $delete = GoogleBillFailedRequest::where('id',$id)->delete();
+        return redirect()->route('google-ad-account-bill-failed-request')->with('message','Successfully Ad Account Bill Failed Request Deleted');
     }
 
     public function adAccountBillFailedRequestComplete($id)
@@ -904,24 +904,24 @@ class TiktokAdAccountController extends Controller
         $dt = new DateTime('now', new DateTimezone('Asia/Dhaka'));
         $current_time = $dt->format('Y-m-d g:i a');
 
-        $adAccountAppeal = TiktokBillFailedRequest::where('id',$id)->first();
+        $adAccountAppeal = GoogleBillFailedRequest::where('id',$id)->first();
         $adAccountAppeal->status = 'Complete';
         $adAccountAppeal->confirmed_date = $current_time;
         $adAccountAppeal->save();
 
         $user = User::where('id',$adAccountAppeal->user_id)->first();
-        $adAccountData = TiktokAdAccount::where('id',$adAccountAppeal->ad_account_id)->first();
+        $adAccountData = GoogleAdAccount::where('id',$adAccountAppeal->ad_account_id)->first();
 
         return redirect()->back()->with('message','Successfully Ad Account Bill Failed Complete');
     }
 
     public function adAccountBillFailedRequestReject(Request $request,$id)
     {
-        $data = TiktokBillFailedRequest::where('id',$request->ad_account_appeal_id)->first();
+        $data = GoogleBillFailedRequest::where('id',$request->ad_account_appeal_id)->first();
         $data->status = 'Reject';
         $data->rejected_text = $request->rejected_text;
         $data->save();
 
-        return redirect()->route('tiktok-ad-account-bill-failed-request')->with('message','Successfully Ad Account Bill Failed Request Rejected');
+        return redirect()->route('google-ad-account-bill-failed-request')->with('message','Successfully Ad Account Bill Failed Request Rejected');
     }
 }
