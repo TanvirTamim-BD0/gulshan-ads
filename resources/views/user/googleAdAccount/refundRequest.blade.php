@@ -1,9 +1,9 @@
 @extends('user.master')
 @section('content')
     
-    <h1>Tiktok Ad Account Refund Request</h1>
+    <h1>Google Ad Account Refund Request</h1>
 
-        <form action="{{route('tiktok-ad-account-refund-request-submit')}}" method="post">
+        <form action="{{route('google-ad-account-refund-request-submit')}}" method="post">
             @csrf
             <div class="card rounded-4 p-5">
                 <div class="card-body">

@@ -369,7 +369,7 @@ Route::group(['middleware'=>'admin'],function(){
     Route::post('/google-update-account-bmi', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'updateAccountBmi'])->name('google-update-account-bmi');
     Route::get('/google-ad-account-list/{data}', [App\Http\Controllers\admin\GoogleAdAccountController::class, 'adAccountStatusFilter'])->name('google-ad-account-status-filter');
 
-    /*-----End Tiktok Ad Account------*/
+    /*-----End Google Ad Account------*/
 
 
 
@@ -586,7 +586,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/google-ad-account-bill-failed', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountBillFailed'])->name('google-ad-account-bill-failed');
     Route::post('/google-ad-account-bill-failed-submit', [App\Http\Controllers\user\GoogleAdAccountController::class, 'adAccountBillFailedSubmit'])->name('google-ad-account-bill-failed-submit');
 
-    /*-----End Google Tiktok --------*/
+    /*-----End Google   --------*/
 
 
 
